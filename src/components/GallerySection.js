@@ -201,14 +201,15 @@ export default function GallerySection() {
           {data[activeTab].map((card, index) => (
             <SwiperSlide key={index}>
               <div
-                className="text-black flex flex-col gap-3 pb-3 p-1 rounded-[34px] h-full"
+                className="text-black w-[450px] flex flex-col gap-3 pb-3 p-1 rounded-[34px] h-full"
                 style={{ background: card.bgColor }}
               >
                 <div>
-                  <Image
+                  <img
                     src={card.path}
                     alt=""
                     className="rounded-[34px] w-full h-full object-cover"
+                    
                   />
                 </div>
                 <div className="px-3 flex flex-col gap-4">

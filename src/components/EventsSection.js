@@ -47,9 +47,32 @@ export default function EventsSection() {
     },
   ];
 
+  // useEffect(() => {
+  //   gsap.registerPlugin(ScrollTrigger);
+  //   const ctx = gsap.context(() => {
+  //     gsap.from(slidesRef.current, {
+  //       y: 40,
+  //       autoAlpha: 0,
+  //       stagger: 0.15,
+  //       duration: 0.6,
+  //       ease: "power3.out",
+  //       scrollTrigger: {
+  //         trigger: rootRef.current,
+  //         start: "top 80%",
+  //         once: true,
+  //       },
+  //     });
+  //   }, rootRef);
+
+  //   return () => ctx.revert();
+  // }, []);
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
+      // Make all slides visible before scroll animation runs
+      gsap.set(slidesRef.current, { autoAlpha: 1, y: 0 });
+
+      // Then animate on scroll
       gsap.from(slidesRef.current, {
         y: 40,
         autoAlpha: 0,
@@ -67,8 +90,7 @@ export default function EventsSection() {
     return () => ctx.revert();
   }, []);
 
-  const nextSlide = () =>
-    setCurrentSlide((prev) => (prev + 1) % events.length);
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % events.length);
   const prevSlide = () =>
     setCurrentSlide((prev) => (prev - 1 + events.length) % events.length);
 
@@ -89,9 +111,9 @@ export default function EventsSection() {
               </div>
 
               <p className="text-gray-600 text-base lg:text-lg leading-relaxed max-w-lg">
-                {`Stay connected to live events unfolding inside Zoaverse. From
+                Stay connected to live events unfolding inside Zoaverse. From
                 conferences and workshops to concerts and community meetups,
-                there's always something exciting to join.`}
+                there's always something exciting to join.
               </p>
 
               <div className="flex gap-3 pt-4 justify-end">
@@ -153,13 +175,17 @@ export default function EventsSection() {
                             <div className="flex items-center gap-2 mb-2">
                               <Calendar size={14} />
                               <span className="text-sm">{event.date}</span>
-                              <span className="text-sm text-white/80 ml-2">{event.fullDate}</span>
+                              <span className="text-sm text-white/80 ml-2">
+                                {event.fullDate}
+                              </span>
                             </div>
 
                             <div className="flex items-center gap-2 mb-3">
                               <Clock size={14} />
                               <span className="text-sm">{event.time}</span>
-                              <span className="text-sm text-white/80 ml-2">{event.timezone}</span>
+                              <span className="text-sm text-white/80 ml-2">
+                                {event.timezone}
+                              </span>
                             </div>
 
                             <p className="text-sm text-white/90 leading-relaxed">

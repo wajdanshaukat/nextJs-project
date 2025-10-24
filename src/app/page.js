@@ -6,6 +6,7 @@ import EventsSection from "@/components/EventsSection";
 import EcosystemSection from "@/components/EcosystemSection";
 import Image from "next/image";
 
+
 export default function Page() {
   return (
     <>
@@ -20,9 +21,11 @@ export default function Page() {
           }}
         >
           <Image
-            src="./assets/images/Frame-48.png"
+            src="/assets/images/Frame-48.png"
             alt="falling background"
             className="w-full opacity-70 h-[460px]"
+            width={1080}
+            height={460}
           />
         </div>
         <GallerySection />

@@ -37,6 +37,8 @@ export default function Navbar() {
                 className="h-10 w-auto"
                 src="/assets/images/logo.svg"
                 alt="Zoaverse logo"
+                width={140}
+                height={70}
               />
             </Link>
 

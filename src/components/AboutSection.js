@@ -122,7 +122,7 @@ export default function IdentitySection() {
       {/* Cards positioned in bottom corners like second image */}
       <div className="relative mt-10 w-full h-[500px] z-10">
         {/* Personalized Card - Bottom Left corner with counter-clockwise rotation */}
-        <div className="info-card absolute left-0 bottom-0 -rotate-[15deg] scale-[0.8] sm:scale-[0.85] md:scale-[0.9] translate-x-[-25%] translate-y-[30%]">
+        <div className="info-card absolute left-0 bottom-0 -rotate-[15deg] scale-[0.8] sm:scale-[0.85] md:scale-[0.9] translate-x-[-25%] translate-y-[20%]">
           <div className="overlap-group-2 relative">
             <div className="rectangle"></div>
             <div className="rectangle-2"></div>
@@ -143,7 +143,7 @@ export default function IdentitySection() {
         </div>
 
         {/* Companions Card - Bottom Right corner with clockwise rotation */}
-        <div className="info-card absolute right-0 bottom-0 rotate-[15deg] scale-[0.8] sm:scale-[0.85] md:scale-[0.9] translate-x-[25%] translate-y-[30%]">
+        <div className="info-card absolute right-0 bottom-0 rotate-[15deg] scale-[0.8] sm:scale-[0.85] md:scale-[0.9] translate-x-[25%] translate-y-[20%]">
           <div className="overlap-group-2 relative">
             <div className="rectangle-3"></div>
             <div className="rectangle-2c"></div>
