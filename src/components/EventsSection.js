@@ -111,9 +111,9 @@ export default function EventsSection() {
               </div>
 
               <p className="text-gray-600 text-base lg:text-lg leading-relaxed max-w-lg">
-                Stay connected to live events unfolding inside Zoaverse. From
+                {`Stay connected to live events unfolding inside Zoaverse. From
                 conferences and workshops to concerts and community meetups,
-                there's always something exciting to join.
+                there's always something exciting to join.`}
               </p>
 
               <div className="flex gap-3 pt-4 justify-end">

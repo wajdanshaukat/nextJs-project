@@ -205,7 +205,7 @@ export default function GallerySection() {
                 style={{ background: card.bgColor }}
               >
                 <div>
-                  <img
+                  <Image
                     src={card.path}
                     alt=""
                     className="rounded-[34px] w-full h-full object-cover"

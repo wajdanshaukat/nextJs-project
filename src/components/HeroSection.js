@@ -20,7 +20,7 @@ export default function HeroSection() {
         visibility: index === currentSlide ? "visible" : "hidden",
       });
     });
-  }, []);
+  }, [currentSlide]);
 
   const heroSlides = [
     {
