@@ -15,7 +15,7 @@ export default function Page() {
         <div
           className="absolute left-0 w-full z-[1] pointer-events-none"
           style={{
-            top: "62%", // adjust this value depending on HeroSection height
+            top: "60%", // adjust this value depending on HeroSection height
             transform: "translateY(-50%)", // centers overlap area
             animation: "fall 5s infinite linear",
           }}

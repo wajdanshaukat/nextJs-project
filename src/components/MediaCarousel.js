@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
@@ -60,12 +60,8 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
     if (isAnimating) return;
     setIsAnimating(true);
 
-    const itemsArray = itemsRef.current;
-    const duration = 2.5;
-
     const timeline = gsap.timeline({
       onComplete: () => {
-        // ✅ only update index after animation completes
         setCurrentIndex((prev) =>
           direction === "next"
             ? (prev + 1) % items.length
@@ -75,155 +71,97 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
       },
     });
 
-    if (window.innerWidth > 1020) {
-      if (direction === "next") {
-        timeline
-          .to(
-            [itemsArray[0], itemsArray[1], itemsArray[5]],
-            {
-              width: "0%",
-              margin: 0,
-              opacity: 0.5,
-              duration,
-              ease: "power2.inOut",
-            },
-            0
-          )
-          .to(
-            [itemsArray[2], itemsArray[4]],
-            {
-              width: "40%",
-              margin: 0,
-              opacity: 0.5,
-              duration,
-              ease: "power2.inOut",
-            },
-            0
-          )
-          .to(
-            itemsArray[3],
-            {
-              width: "100%",
-              opacity: 1,
-              marginRight: "10px",
-              marginLeft: "10px",
-              duration,
-              ease: "power2.inOut",
-            },
-            0
-          );
+    const itemsArray = itemsRef.current;
+    const duration = 2.5;
+    const isMobile = window.innerWidth < 1020;
+
+    itemsArray.forEach((el, i) => {
+      let width = "0%";
+      let opacity = 0.5;
+      let marginLeft = "0px";
+      let marginRight = "0px";
+
+      if (!isMobile) {
+        if (direction === "next") {
+          if (i === 3) {
+            width = "100%";
+            opacity = 1;
+            marginLeft = "10px";
+            marginRight = "10px";
+          } else if (i === 2 || i === 4) {
+            width = "40%";
+            opacity = 0.5;
+          }
+        } else {
+          if (i === 1) {
+            width = "100%";
+            opacity = 1;
+            marginLeft = "10px";
+            marginRight = "10px";
+          } else if (i === 0 || i === 2) {
+            width = "40%";
+            opacity = 0.5;
+          }
+        }
       } else {
-        timeline
-          .to(
-            [itemsArray[0], itemsArray[4], itemsArray[5]],
-            {
-              width: "0%",
-              margin: 0,
-              opacity: 0.5,
-              duration,
-              ease: "power2.inOut",
-            },
-            0
-          )
-          .to(
-            [itemsArray[1], itemsArray[3]],
-            {
-              width: "40%",
-              margin: 0,
-              opacity: 0.5,
-              duration,
-              ease: "power2.inOut",
-            },
-            0
-          )
-          .to(
-            itemsArray[2],
-            {
-              width: "100%",
-              opacity: 1,
-              marginRight: "10px",
-              marginLeft: "10px",
-              duration,
-              ease: "power2.inOut",
-            },
-            0
-          );
+        // Mobile layout: center card only
+        if (
+          (direction === "next" && i === 3) ||
+          (direction === "prev" && i === 1)
+        ) {
+          width = "100%";
+          opacity = 1;
+          marginLeft = "10px";
+          marginRight = "10px";
+        }
       }
-    } else {
-      timeline
-        .to(
-          itemsArray,
-          {
-            width: "0%",
-            margin: 0,
-            opacity: 0.5,
-            duration,
-            ease: "power2.inOut",
-          },
-          0
-        )
-        .to(
-          itemsArray[3],
-          {
-            width: "100%",
-            opacity: 1,
-            marginRight: "10px",
-            marginLeft: "10px",
-            duration,
-            ease: "power2.inOut",
-          },
-          0
-        );
-    }
+
+      timeline.to(
+        el,
+        {
+          width,
+          opacity,
+          marginLeft,
+          marginRight,
+          duration,
+          ease: "power2.inOut",
+        },
+        0
+      );
+    });
   };
 
-  useEffect(() => {
-    const updateLayout = () => {
-      const itemsArray = itemsRef.current;
-      if (!itemsArray.length) return;
-      containerRef1.current?.offsetHeight; // ✅ force reflow
+  // Initial render/flicker fix
+  useLayoutEffect(() => {
+    const itemsArray = itemsRef.current;
+    gsap.set(itemsArray, { opacity: 0, visibility: "hidden" });
 
-      requestAnimationFrame(() => {
-        if (window.innerWidth < 1020) {
-          gsap.set(itemsArray, { width: "0%", margin: 0, opacity: 0.5 });
-          gsap.set(itemsArray[2], {
-            width: "100%",
-            opacity: 1,
-            marginRight: "10px",
-            marginLeft: "10px",
-          });
+    const showInitial = () => {
+      const isMobile = window.innerWidth < 1020;
+      itemsArray.forEach((item, i) => {
+        let config = { opacity: 0.5, visibility: "visible", width: "0%" };
+        if (isMobile) {
+          if (i === 2)
+            config = { opacity: 1, width: "100%", visibility: "visible" };
         } else {
-          gsap.set(itemsArray[0], { width: "0%", margin: 0, opacity: 0.5 });
-          gsap.set(itemsArray[1], { width: "40%", margin: 0, opacity: 0.5 });
-          gsap.set(itemsArray[2], {
-            width: "100%",
-            opacity: 1,
-            marginRight: "10px",
-            marginLeft: "10px",
-          });
-          gsap.set(itemsArray[3], { width: "40%", margin: 0, opacity: 0.5 });
-          gsap.set(itemsArray[4], { width: "0%", margin: 0, opacity: 0.5 });
+          if (i === 1 || i === 3)
+            config = { opacity: 0.5, width: "40%", visibility: "visible" };
+          if (i === 2)
+            config = {
+              opacity: 1,
+              width: "100%",
+              visibility: "visible",
+              marginLeft: "10px",
+              marginRight: "10px",
+            };
         }
+        gsap.set(item, config);
       });
     };
 
-    // ✅ ensure layout after videos load
-    const handleVideoLoaded = () => {
-      setTimeout(updateLayout, 100);
-    };
-
-    const videos = document.querySelectorAll("video");
-    videos.forEach((v) => v.addEventListener("loadeddata", handleVideoLoaded));
-
-    requestAnimationFrame(() => setTimeout(updateLayout, 0));
-    window.addEventListener("resize", updateLayout);
-
-    return () => {
-      videos.forEach((v) =>
-        v.removeEventListener("loadeddata", handleVideoLoaded)
-      );
-      window.removeEventListener("resize", updateLayout);
-    };
+    showInitial();
+    window.addEventListener("resize", showInitial);
+    return () => window.removeEventListener("resize", showInitial);
   }, []);
 
   return (
@@ -241,7 +179,7 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
               key={item.id}
               ref={(el) => (itemsRef.current[index] = el)}
               className="lg:!h-[750px] max-lg:h-[512px] rounded-lg self-start transition relative overflow-hidden"
-              style={{ minWidth: "0%" }}
+              style={{ minWidth: "0%", opacity: 0, visibility: "hidden" }}
             >
               <div
                 className="rounded-[40px] absolute h-full w-full"
@@ -254,7 +192,6 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
                 <div className="h-full text-white px-4 relative flex flex-col gap-2 w-max justify-end">
                   <h3>{item.heading}</h3>
                   <p
-                    className="max-sm:!text-wrap max-sm:!w-[400px]"
                     ref={(el) => (subHeadingRef.current[index] = el)}
                     style={{
                       width: "500px",
@@ -294,6 +231,8 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
                 src="assets/images/arrowIcon-1.svg"
                 alt="prev"
                 className="rtl:rotate-180"
+                width={8}
+                height={8}
               />
             </button>
             <button
@@ -304,6 +243,8 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
                 src="assets/images/arrowIcon-1.svg"
                 alt="next"
                 className="rtl:rotate-180"
+                width={8}
+                height={8}
               />
             </button>
           </div>

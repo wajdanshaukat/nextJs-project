@@ -139,13 +139,13 @@ export default function GallerySection() {
       ref={rootRef}
       className="relative z-10 py-24 overflow-hidden bg-transparent h-full"
     >
-      <div className="container mx-auto px-6 lg:px-8 relative">
+      <div className="mx-auto px-6 lg:px-10 relative">
         {/* Header */}
         <div className="flex flex-col mb-10">
-          <h2 className="text-3xl md:text-5xl font-bold text-white">
+          <h2 className="text-3xl md:text-5xl text-white font-regular">
             Why Choose
             <br />
-            <span className="text-brand-200 text-[80px] md:text-[100px] block">
+            <span className="text-brand-200 text-[80px] md:text-[100px] font-extrabold italic block">
               ZOEVERSE
             </span>
           </h2>
@@ -187,49 +187,56 @@ export default function GallerySection() {
 
         {/* Swiper Carousel */}
         <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          slidesPerView={3}
-          spaceBetween={35}
-          loop={true}
-          breakpoints={{
-            0: { slidesPerView: 1, spaceBetween: 20 },
-            768: { slidesPerView: 2, spaceBetween: 30 },
-            1024: { slidesPerView: 3, spaceBetween: 35 },
-          }}
-          className="!overflow-visible"
-        >
-          {data[activeTab].map((card, index) => (
-            <SwiperSlide key={index}>
-              <div
-                className="text-black w-[450px] flex flex-col gap-3 pb-3 p-1 rounded-[34px] h-full"
-                style={{ background: card.bgColor }}
-              >
-                <div>
-                  <Image
-                    src={card.path}
-                    alt=""
-                    className="rounded-[34px] w-full h-full object-cover"
-                    
-                  />
-                </div>
-                <div className="px-3 flex flex-col gap-4">
-                  <div className="font-semibold md:leading-[39px] sm:leading-[24px] leading-[20px] sm:text-[20px] text-[16px] md:text-[32px] rtl:text-right">
-                    {card.header}
-                  </div>
-                  <div className="font-normal md:leading-[17px] sm:leading-[14px] sm:text-sm text-xs leading-normal md:text-base rtl:text-right">
-                    {card.description}
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+  onSwiper={(swiper) => (swiperRef.current = swiper)}
+  slidesPerView={3.15}
+  slidesPerGroup={1}
+  loop={true}
+  spaceBetween={35}
+  slidesOffsetBefore={0}
+  slidesOffsetAfter={0}
+  breakpoints={{
+    0: { slidesPerView: 1.1, spaceBetween: 15 },
+    640: { slidesPerView: 1.5, spaceBetween: 20 },
+    768: { slidesPerView: 2.15, spaceBetween: 30 },
+    1024: { slidesPerView: 3.15, spaceBetween: 35 },
+  }}
+  className="!overflow-hidden w-full"
+>
+  {data[activeTab].map((card, index) => (
+    <SwiperSlide key={index}>
+      <div
+        className="text-black w-full max-w-[450px] flex flex-col gap-3 pb-3 p-1 rounded-[34px] h-full"
+        style={{ background: card.bgColor }}
+      >
+        <div>
+          <Image
+            src={card.path}
+            alt=""
+            className="rounded-[34px] w-full h-full object-cover"
+            width={500}
+            height={500}
+          />
+        </div>
+        <div className="px-3 flex flex-col gap-4">
+          <div className="font-semibold md:leading-[39px] sm:leading-[24px] leading-[20px] sm:text-[20px] text-[16px] md:text-[32px] rtl:text-right">
+            {card.header}
+          </div>
+          <div className="font-normal md:leading-[17px] sm:leading-[14px] sm:text-sm text-xs leading-normal md:text-base rtl:text-right">
+            {card.description}
+          </div>
+        </div>
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
+
       </div>
     </section>
   );
 }
 
-{/* <div className="grid md:grid-cols-3 gap-6">
+{
+  /* <div className="grid md:grid-cols-3 gap-6">
   {cards.map((c, i) => (
     <div
       key={c.title}
@@ -245,4 +252,5 @@ export default function GallerySection() {
       </div>
     </div>
   ))}
-</div>; */}
+</div>; */
+}

@@ -96,7 +96,7 @@ export default function EventsSection() {
 
   return (
     <section ref={rootRef} className="relative bg-black py-24 overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-8">
+      <div className="mx-auto px-6 lg:px-10">
         <div className="bg-[#F5F5F5] rounded-3xl p-8 lg:p-12">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* LEFT SECTION */}
@@ -105,7 +105,7 @@ export default function EventsSection() {
                 <h2 className="text-xl lg:text-2xl font-normal uppercase text-gray-700 tracking-wide">
                   HAPPENING
                 </h2>
-                <h2 className="text-5xl lg:text-7xl font-bold uppercase text-gray-800 tracking-wide leading-tight">
+                <h2 className="text-5xl lg:text-7xl font-bold italic uppercase text-gray-800 tracking-wide leading-tight">
                   NOW
                 </h2>
               </div>

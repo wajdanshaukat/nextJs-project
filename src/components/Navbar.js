@@ -8,16 +8,16 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const navItems = [
-    { href: "#download", label: "Download" },
     { href: "#features", label: "Features" },
     { href: "#avatars", label: "Avatars" },
-    { href: "#spaces", label: "Spaces" },
+    { href: "#media", label: "Media" },
+    { href: "#news", label: "News" },
   ];
 
   return (
     <section
       id="header"
-      className="w-full px-12 fixed top-0 left-0 z-[99999999999] bg-transparent"
+      className="w-full px-10 fixed top-0 left-0 z-[99999999999] bg-transparent"
     >
       <nav className="bg-transparent !z-[99999999999]">
         {/* Background blur */}
@@ -34,11 +34,10 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="#" className="flex items-center">
               <Image
-                className="h-10 w-auto"
                 src="/assets/images/logo.svg"
                 alt="Zoaverse logo"
-                width={140}
-                height={70}
+                width={300}
+                height={120}
               />
             </Link>
 
@@ -48,7 +47,7 @@ export default function Navbar() {
                 <li key={item.href} className="nav-item">
                   <a
                     href={item.href}
-                    className="nav-link px-2 text-white text-lg tracking-wide hover:text-blue-400 transition"
+                    className="nav-link border border-white rounded-full px-4 py-2 text-white text-lg tracking-wide hover:text-blue-400 transition"
                   >
                     {item.label}
                   </a>
@@ -59,8 +58,8 @@ export default function Navbar() {
 
           {/* Right side - language + mobile toggle */}
           <div className="flex items-center gap-4">
-            <button className="langbtn px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
-              <Languages size={16} className="inline mr-1" /> العربية
+            <button className="langbtn px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-white transition cursor-pointer">
+               عربي
             </button>
 
             {/* Mobile Toggle */}

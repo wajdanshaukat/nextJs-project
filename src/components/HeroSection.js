@@ -1,9 +1,8 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useGsap from "@/hooks/useGsap";
-import { useLayoutEffect } from "react";
 import Image from "next/image";
 
 export default function HeroSection() {
@@ -97,19 +96,7 @@ export default function HeroSection() {
     return () => ctx.revert();
   }, [currentSlide]);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
-    );
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
+  const goToSlide = (index) => setCurrentSlide(index);
 
   return (
     <section
@@ -122,7 +109,6 @@ export default function HeroSection() {
         backgroundPosition: "center, center",
       }}
     >
-      {/* Slides */}
       {heroSlides.map((slide, index) => (
         <div
           key={slide.id}
@@ -135,18 +121,17 @@ export default function HeroSection() {
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url(${slide.image})`,
-            }}
+            style={{ backgroundImage: `url(${slide.image})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/20"></div>
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 container mx-auto px-6 lg:px-8 h-full flex items-center">
-            <div className="max-w-2xl relative">
+         {/* Content */}
+          <div className="relative z-10 mx-auto px-6 lg:px-10 h-full flex items-center">
+            <div className="max-w-2xl relative w-full mx-auto md:mx-0 md:ml-0">
+              {/* Subtitle (Only visible on laptop and above) */}
               <div
-                className={`absolute -top-20 left-0 h-[60px] flex items-center transition-all duration-300 ${
+                className={`absolute -top-20 left-0 h-[60px] items-center transition-all duration-300 hidden lg:flex ${
                   slide.subtitle ? "opacity-100 visible" : "opacity-0 invisible"
                 }`}
               >
@@ -169,18 +154,32 @@ export default function HeroSection() {
                 ) : null}
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold italic text-white leading-tight mb-6">
                 {slide.title}
               </h1>
-              <p className="text-white/90 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+
+              {/* Description */}
+              <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mb-8 leading-relaxed mx-auto md:mx-0">
                 {slide.description}
               </p>
 
-              <div className="flex items-center justify-between w-full">
-                {/* Left: CTA Buttons */}
-                <div className="flex items-center gap-4">
-                  <button className="inline-flex items-center gap-2 px-6 py-4 border border-white bg-blue-600 text-white font-semibold cursor-pointer hover:bg-blue-700 transition-colors rounded-full">
-                    {slide.cta}
+              {/* CTA Buttons */}
+              <div
+                className={`flex flex-wrap items-center justify-center md:justify-start gap-4 w-full ${
+                  slide.ctaSecondary
+                    ? "flex-row" // row if secondary exists
+                    : "flex-row xs:flex-row sm:flex-col" // stack only on small screens >425px
+                }`}
+              >
+                {/* Primary Button */}
+                <button
+                  className={`inline-flex self-start   items-center justify-center gap-2 px-6 py-4 border border-white bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors rounded-full
+          ${slide.ctaSecondary ? "w-auto" : "w-full sm:w-[80%] lg:w-auto"}`}
+                >
+                  {slide.cta}
+                  {/* Icons only on laptop and up */}
+                  <span className="hidden lg:flex items-center gap-2">
                     <Image
                       src="assets/images/apple.svg"
                       alt="Apple"
@@ -195,32 +194,27 @@ export default function HeroSection() {
                       width={4}
                       height={4}
                     />
-                  </button>
+                  </span>
+                </button>
 
-                  {/* Secondary CTA */}
-                  <div
-                    className={`transition-all duration-300 min-w-[190px] ${
-                      slide.ctaSecondary
-                        ? "opacity-100 visible"
-                        : "opacity-0 invisible"
-                    }`}
-                  >
-                    <button className="inline-flex gap-2 items-center px-6 py-4 border border-white text-white font-semibold rounded-full cursor-pointer">
-                      {slide.ctaSecondary || "MORE INFO"}
-                      <Image
-                        src="assets/images/arrowLeft.svg"
-                        alt="arrowLeft"
-                        className="w-4 h-4"
-                        width={4}
-                        height={4}
-                      />
-                    </button>
-                  </div>
-                </div>
+                {/* Secondary Button */}
+                {slide.ctaSecondary && (
+                  <button className="inline-flex gap-2 items-center justify-center px-6 py-4 border border-white text-white font-semibold rounded-full cursor-pointer">
+                    {slide.ctaSecondary}
+                    <Image
+                      src="assets/images/arrowLeft.svg"
+                      alt="arrowLeft"
+                      className="w-4 h-4"
+                      width={4}
+                      height={4}
+                    />
+                  </button>
+                )}
               </div>
             </div>
 
-            <div className="absolute right-8 top-[67%] -translate-y-1/2 flex items-center gap-3 z-20">
+            {/* Dot Navigation (hidden on mobile & tablet) */}
+            <div className="absolute right-10 top-[67%] -translate-y-1/2 hidden lg:flex items-center gap-3 z-20">
               {heroSlides.map((_, dotIndex) => (
                 <button
                   key={dotIndex}
