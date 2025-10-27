@@ -408,8 +408,8 @@ export default function IdentitySection() {
               <div className="div-2">
                 <div className="text-wrapper">COMPANIONS</div>
                 <p className="p4">
-                  From playful creatures to futuristic bots, they're more than
-                  accessories—they're part of your journey.
+                  {`From playful creatures to futuristic bots, they're more than
+                  accessories—they're part of your journey.`}
                 </p>
               </div>
               <div className="ellipse"></div>
