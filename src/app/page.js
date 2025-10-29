@@ -1,43 +1,97 @@
+"use client";
+import { useLayoutEffect, useEffect, useRef } from "react";
+import gsap from "gsap";
 import HeroSection from "@/components/HeroSection";
-import GallerySection from "@/components/GallerySection";
-import AboutSection from "@/components/AboutSection";
+import FeatureSection from "@/components/FeaturesSection";
+import AvatarSection from "@/components/AvatarSection";
 import MediaCarousel from "@/components/MediaCarousel";
-import EventsSection from "@/components/EventsSection";
+import NewsSection from "@/components/NewsSection";
 import EcosystemSection from "@/components/EcosystemSection";
 import Image from "next/image";
 
-
 export default function Page() {
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    // Ensure GSAP reads layout before paint → no jump
+    const ctx = gsap.context(() => {
+      // Set the initial position *before paint*
+      gsap.set(bgRef.current, {
+        y: 0,
+        opacity: 1,
+      });
+
+      // Start floating animation
+      gsap.to(bgRef.current, {
+        y: 40,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
       <div className="relative bg-[#0b0b0c] text-white overflow-hidden">
+        {/* Hero Section */}
         <HeroSection />
+
+        {/* Animated Background Layer (your spacing style preserved) */}
         <div
           className="absolute left-0 w-full z-[1] pointer-events-none"
           style={{
-            top: "60%", // adjust this value depending on HeroSection height
-            transform: "translateY(-50%)", // centers overlap area
-            animation: "fall 5s infinite linear",
+            top: "56%", // adjust if needed
+            transform: "translateY(-50%)",
           }}
         >
-          <Image
-            src="/assets/images/Frame-48.png"
-            alt="falling background"
-            className="w-full opacity-70 h-[460px]"
-            width={1080}
-            height={460}
-          />
+          <div
+            ref={bgRef}
+            className="absolute left-0 w-full z-[1] pointer-events-none overflow-hidden"
+            style={{
+              top: "56%", // your inner positioning
+              transform: "translateY(-50%)",
+            }}
+          >
+            <div className="relative w-full h-[500px]">
+              <Image
+                src="/assets/images/Frame-48.png"
+                alt="falling background"
+                fill
+                className="object-cover object-center opacity-70"
+                priority
+              />
+            </div>
+          </div>
         </div>
-        <GallerySection />
+
+        {/* Features Section */}
+        <section id="features">
+          <FeatureSection />
+        </section>
       </div>
-      <AboutSection />
-      <MediaCarousel />
-      <EventsSection />
+      <section id="avatars">
+        <AvatarSection />
+      </section>
+      <section id="media">
+        <MediaCarousel />
+      </section>
+      <section id="news">
+        <NewsSection />
+      </section>
       {/* <EcosystemSection /> */}
     </>
   );
 }
-
 
 // "use client";
 // import { useRef, useEffect, useState } from "react";
@@ -129,7 +183,7 @@ export default function Page() {
 //         {/* Main Content Container with Light Grey Background */}
 //         <div className="bg-gray-200 rounded-3xl p-8 lg:p-12">
 //           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            
+
 //             {/* Left Content Area */}
 //             <div className="space-y-6">
 //               {/* Title */}
@@ -141,12 +195,12 @@ export default function Page() {
 //                   NOW
 //                 </h2>
 //               </div>
-              
+
 //               {/* Description */}
 //               <p className="text-gray-600 text-sm lg:text-base leading-relaxed max-w-md">
 //                 Stay connected to live events unfolding inside Zoaverse. From conferences and workshops to concerts and community meetups, there's always something exciting to join.
 //               </p>
-              
+
 //               {/* Navigation Controls - Right Aligned */}
 //               <div className="flex gap-3 justify-end">
 //                 <button
@@ -172,8 +226,8 @@ export default function Page() {
 //                     key={event.id}
 //                     ref={(el) => (slideRefs.current[index] = el)}
 //                     className={`relative flex-shrink-0 w-80 h-64 rounded-2xl overflow-hidden transition-all duration-500 ${
-//                       index === currentSlide 
-//                         ? 'opacity-100 scale-100' 
+//                       index === currentSlide
+//                         ? 'opacity-100 scale-100'
 //                         : 'opacity-30 scale-95'
 //                     }`}
 //                   >
@@ -188,14 +242,14 @@ export default function Page() {
 //                       {index === currentSlide && (
 //                         <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-blue-900/40 to-transparent"></div>
 //                       )}
-                      
+
 //                       {/* Event Details Overlay - Only on active card */}
 //                       {index === currentSlide && (
 //                         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
 //                           <h3 className="text-xl font-bold mb-3">
 //                             {event.title}
 //                           </h3>
-                          
+
 //                           <div className="flex items-center justify-between mb-2">
 //                             <div className="flex items-center gap-2">
 //                               <Calendar size={14} />
@@ -206,12 +260,12 @@ export default function Page() {
 //                               <span className="text-sm">{event.time}</span>
 //                             </div>
 //                           </div>
-                          
+
 //                           <div className="flex items-center justify-between mb-2">
 //                             <span className="text-sm text-white/80">{event.fullDate}</span>
 //                             <span className="text-sm text-white/80">{event.timezone}</span>
 //                           </div>
-                          
+
 //                           <p className="text-sm text-white/90 leading-relaxed">
 //                             {event.description}
 //                           </p>

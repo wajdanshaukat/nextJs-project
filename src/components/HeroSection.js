@@ -9,7 +9,20 @@ export default function HeroSection() {
   useGsap();
   const rootRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [smallMobile, setSmallMobile] = useState(false);
+
   const slideRefs = useRef([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      setSmallMobile(window.innerWidth < 641);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -28,7 +41,8 @@ export default function HeroSection() {
       subtitle: "",
       description:
         "Discover the future of virtual experiences with Zoaverse - an immersive platform for events, shows, classes, and meetings in 3D interactive spaces. Engage, learn, and connect like never before.",
-      image: "assets/images/hero-1.png",
+      imageDesktop: "/assets/images/hero-1.png",
+      imageMobile: "/assets/images/hero-1-mobile.png",
       cta: "DOWNLOAD NOW",
       ctaSecondary: null,
     },
@@ -38,7 +52,8 @@ export default function HeroSection() {
       subtitle: "ROUND3",
       description:
         "Step into Round3 Qurtobah, a desert-themed Prop & Hunt adventure inspired by Arabian heritage. Hide, hunt, and outsmart your rivals in a setting full of tension and excitement.",
-      image: "assets/images/hero-2.png",
+      imageDesktop: "/assets/images/hero-2.png",
+      imageMobile: "/assets/images/hero-2-mobile.png",
       cta: "DOWNLOAD NOW",
       ctaSecondary: "MORE INFO",
     },
@@ -48,7 +63,8 @@ export default function HeroSection() {
       subtitle: "ZERO IQ",
       description:
         "Two teams go head-to-head answering unpredictable, hilarious, and sometimes downright silly questions. Think fast, laugh harder, and embrace the chaos.",
-      image: "assets/images/hero-3.png",
+      imageDesktop: "/assets/images/hero-3.png",
+      imageMobile: "/assets/images/hero-3-mobile.png",
       cta: "DOWNLOAD NOW",
       ctaSecondary: "MORE INFO",
     },
@@ -58,20 +74,22 @@ export default function HeroSection() {
       subtitle: "ROUND3",
       description:
         "Enter Round3 Alpha, a futuristic Prop & Hunt clash where advanced robots face off against heavily armed soldiers. Tactics, technology, and survival collide in the ultimate showdown.",
-      image: "assets/images/hero-4.png",
+      imageDesktop: "/assets/images/hero-4.png",
+      imageMobile: "/assets/images/hero-4-mobile.png",
       cta: "DOWNLOAD NOW",
       ctaSecondary: "MORE INFO",
     },
   ];
 
+  // Auto slide
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [heroSlides.length]);
 
+  // Keep your GSAP transition effect
   useEffect(() => {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
@@ -101,135 +119,182 @@ export default function HeroSection() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full h-[1080px] flex items-center overflow-hidden"
+      className="relative w-full h-[1080px] md:h-[900px] sm:h-[750px] flex items-center overflow-hidden bg-cover bg-center"
       style={{
         background:
           'url("assets/images/bg2.png") no-repeat center center fixed, url("assets/images/Bees1.png") no-repeat center center fixed',
         backgroundSize: "cover, cover",
-        backgroundPosition: "center, center",
       }}
     >
-      {heroSlides.map((slide, index) => (
-        <div
-          key={slide.id}
-          ref={(el) => (slideRefs.current[index] = el)}
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            index === 0 ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ visibility: index === 0 ? "visible" : "hidden" }}
-        >
-          {/* Background Image */}
+      {heroSlides.map((slide, index) => {
+        const bgImage = isMobile ? slide.imageMobile : slide.imageDesktop;
+
+        return (
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${slide.image})` }}
+            key={slide.id}
+            ref={(el) => (slideRefs.current[index] = el)}
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              index === 0 ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ visibility: index === 0 ? "visible" : "hidden" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/20"></div>
-          </div>
-
-         {/* Content */}
-          <div className="relative z-10 mx-auto px-6 lg:px-10 h-full flex items-center">
-            <div className="max-w-2xl relative w-full mx-auto md:mx-0 md:ml-0">
-              {/* Subtitle (Only visible on laptop and above) */}
-              <div
-                className={`absolute -top-20 left-0 h-[60px] items-center transition-all duration-300 hidden lg:flex ${
-                  slide.subtitle ? "opacity-100 visible" : "opacity-0 invisible"
-                }`}
-              >
-                {slide.subtitle === "ROUND3" ? (
-                  <Image
-                    src="/assets/images/round3-logo.png"
-                    alt="Round3"
-                    width={160}
-                    height={60}
-                    className="object-contain"
-                  />
-                ) : slide.subtitle === "ZERO IQ" ? (
-                  <Image
-                    src="/assets/images/zeroiq-logo.png"
-                    alt="Zero IQ"
-                    width={120}
-                    height={40}
-                    className="object-contain"
-                  />
-                ) : null}
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold italic text-white leading-tight mb-6">
-                {slide.title}
-              </h1>
-
-              {/* Description */}
-              <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mb-8 leading-relaxed mx-auto md:mx-0">
-                {slide.description}
-              </p>
-
-              {/* CTA Buttons */}
-              <div
-                className={`flex flex-wrap items-center justify-center md:justify-start gap-4 w-full ${
-                  slide.ctaSecondary
-                    ? "flex-row" // row if secondary exists
-                    : "flex-row xs:flex-row sm:flex-col" // stack only on small screens >425px
-                }`}
-              >
-                {/* Primary Button */}
-                <button
-                  className={`inline-flex self-start   items-center justify-center gap-2 px-6 py-4 border border-white bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors rounded-full
-          ${slide.ctaSecondary ? "w-auto" : "w-full sm:w-[80%] lg:w-auto"}`}
-                >
-                  {slide.cta}
-                  {/* Icons only on laptop and up */}
-                  <span className="hidden lg:flex items-center gap-2">
-                    <Image
-                      src="assets/images/apple.svg"
-                      alt="Apple"
-                      className="w-4 h-4"
-                      width={4}
-                      height={4}
-                    />
-                    <Image
-                      src="assets/images/windows.svg"
-                      alt="Windows"
-                      className="w-4 h-4"
-                      width={4}
-                      height={4}
-                    />
-                  </span>
-                </button>
-
-                {/* Secondary Button */}
-                {slide.ctaSecondary && (
-                  <button className="inline-flex gap-2 items-center justify-center px-6 py-4 border border-white text-white font-semibold rounded-full cursor-pointer">
-                    {slide.ctaSecondary}
-                    <Image
-                      src="assets/images/arrowLeft.svg"
-                      alt="arrowLeft"
-                      className="w-4 h-4"
-                      width={4}
-                      height={4}
-                    />
-                  </button>
-                )}
-              </div>
+            {/* Background Image */}
+            <div
+              className={`absolute inset-0 bg-no-repeat bg-cover ${
+                smallMobile
+                  ? "bg-[position:center_top_20%]"
+                  : isMobile
+                  ? ""
+                  : "bg-center"
+              }`}
+              style={{ backgroundImage: `url(${bgImage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/20"></div>
             </div>
 
-            {/* Dot Navigation (hidden on mobile & tablet) */}
-            <div className="absolute right-10 top-[67%] -translate-y-1/2 hidden lg:flex items-center gap-3 z-20">
-              {heroSlides.map((_, dotIndex) => (
-                <button
-                  key={dotIndex}
-                  onClick={() => goToSlide(dotIndex)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    dotIndex === currentSlide
-                      ? "bg-white scale-110"
-                      : "bg-white/40 hover:bg-white/60"
+            {/* Content */}
+            <div
+              className="
+                relative z-[10] mx-auto lg:mt-28 mt-32 px-6 sm:px-8 lg:px-10 h-full 
+                flex items-center justify-center lg:justify-start
+              "
+            >
+              <div
+                className="
+                  max-w-2xl relative w-full 
+                  !text-center lg:!text-left
+                  mx-auto lg:mx-0
+                 "
+              >
+                {/* Subtitle */}
+                <div
+                  className={`absolute -top-20 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-0 h-[60px] items-center hidden lg:flex ${
+                    slide.subtitle
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
                   }`}
-                />
-              ))}
+                >
+                  {slide.subtitle === "ROUND3" ? (
+                    <Image
+                      src="/assets/images/round3-logo.png"
+                      alt="Round3"
+                      width={160}
+                      height={60}
+                      className="object-contain"
+                    />
+                  ) : slide.subtitle === "ZERO IQ" ? (
+                    <Image
+                      src="/assets/images/zeroiq-logo.png"
+                      alt="Zero IQ"
+                      width={120}
+                      height={40}
+                      className="object-contain"
+                    />
+                  ) : null}
+                </div>
+
+                {/* Title */}
+                <h1
+                  className="
+                    text-3xl sm:text-4xl md:text-5xl lg:text-7xl 
+                    font-extrabold italic text-white leading-tight mb-6
+                  "
+                >
+                  {slide.title}
+                </h1>
+
+                {/* Description */}
+                <p
+                  className="
+                    text-white/90 text-sm sm:text-base md:text-lg 
+                    max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed
+                  "
+                >
+                  {slide.description}
+                </p>
+
+                {/* CTA Buttons */}
+                <div
+                  className="
+                    flex flex-row xs:flex-col 
+                    items-center lg:items-start justify-center lg:justify-start gap-4
+                  "
+                >
+                  <button
+                    className={`
+                      inline-flex items-center justify-center gap-2 
+                      px-6 py-3 border border-white bg-blue-600 text-white 
+                      font-semibold hover:bg-blue-700 transition-colors rounded-full
+                      ${
+                        slide.ctaSecondary
+                          ? "w-auto"
+                          : "w-full sm:w-[80%] lg:w-auto"
+                      }
+                    `}
+                  >
+                    {slide.cta}
+                    <span className="hidden lg:flex items-center gap-2">
+                      <Image
+                        src="assets/images/apple.svg"
+                        alt="Apple"
+                        className="w-4 h-4"
+                        width={4}
+                        height={4}
+                      />
+                      <Image
+                        src="assets/images/windows.svg"
+                        alt="Windows"
+                        className="w-4 h-4"
+                        width={4}
+                        height={4}
+                      />
+                    </span>
+                  </button>
+
+                  {slide.ctaSecondary && (
+                    <button
+                      className="
+                        inline-flex gap-2 items-center justify-center 
+                        px-6 py-3 border border-white text-white font-semibold 
+                        rounded-full cursor-pointer
+                      "
+                    >
+                      {slide.ctaSecondary}
+                      <Image
+                        src="assets/images/arrowLeft.svg"
+                        alt="arrowLeft"
+                        className="w-4 h-4"
+                        width={4}
+                        height={4}
+                      />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Dot Navigation */}
+              <div
+                className="
+                  absolute right-10 top-[68%] -translate-y-1/2 
+                  hidden lg:flex items-center gap-3 z-20
+                "
+              >
+                {heroSlides.map((_, dotIndex) => (
+                  <button
+                    key={dotIndex}
+                    onClick={() => goToSlide(dotIndex)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      dotIndex === currentSlide
+                        ? "bg-white scale-110"
+                        : "bg-white/40 hover:bg-white/60"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </section>
   );
 }

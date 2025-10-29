@@ -1,11 +1,21 @@
 "use client";
 import Image from "next/image";
 
+const scrollToSection = (id) => {
+  const element = document.getElementById(id.toLowerCase());
+  if (element) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#0C0C0C] flex flex-col items-center text-white relative z-50">
+    <footer className="w-full bg-[#0C0C0C] text-white relative z-50 px-6 lg:px-10">
       {/* Top Section */}
-      <div className="w-full max-w-7xl flex flex-col md:flex-row justify-between items-start gap-8 px-6 py-10">
+      <div className="mx-auto px-6 lg:px-10 flex flex-col md:flex-row justify-between items-start gap-8 py-10">
         {/* Left: Logo + Links */}
         <div className="flex flex-col items-center md:items-start gap-6 w-full md:w-1/3">
           <Image
@@ -19,7 +29,8 @@ export default function Footer() {
             {["Features", "Avatars", "Media", "News"].map((item) => (
               <button
                 key={item}
-                className="border border-white/50 text-white text-sm px-4 py-1 rounded-full hover:bg-white hover:text-black transition"
+                onClick={() => scrollToSection(item)}
+                className="border-2 border-white text-white text-sm px-4 py-2 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
               >
                 {item}
               </button>
@@ -30,7 +41,7 @@ export default function Footer() {
         {/* Center: Social */}
         <div className="flex flex-col items-center gap-5 w-full md:w-1/3">
           <h3 className="text-lg font-medium">Follow us</h3>
-          <div className="flex items-center gap-4 opacity-80">
+          <div className="flex items-center gap-4">
             {[
               "fb.svg",
               "xicon.svg",
@@ -39,12 +50,17 @@ export default function Footer() {
               "utb.svg",
               "tiktok.svg",
             ].map((icon, i) => (
-              <a key={i} href="#" className="hover:opacity-100 transition">
+              <a
+                key={i}
+                href="#"
+                className="transition duration-300 hover:bg-white hover:rounded-full p-1 flex items-center justify-center"
+              >
                 <Image
                   src={`/assets/images/${icon}`}
                   alt="icon"
-                  width={28}
-                  height={28}
+                  width={24}
+                  height={24}
+                  className="transition duration-300 hover:invert"
                 />
               </a>
             ))}
@@ -61,43 +77,43 @@ export default function Footer() {
         <div className="flex flex-col gap-4 items-center md:items-start w-full md:w-1/3">
           <h3 className="text-lg font-medium">Newsletter</h3>
 
-          {/* Input */}
           <input
             type="email"
             placeholder="Email address"
             className="w-full max-w-sm bg-[#E4E4E4] text-black placeholder:text-black/60 rounded-full py-2.5 px-5 outline-none"
           />
 
-          {/* Subscribe Button */}
           <button className="w-full max-w-sm bg-[#1465FF] text-white text-sm font-semibold rounded-full flex items-center justify-between px-6 py-2.5 hover:bg-blue-600 transition">
             <span>SUBSCRIBE</span>
             <Image
-            src="/assets/images/arrowLeft.svg"
-            alt="arrowLeft"
-            width={20}
-            height={5}
-            className="object-contain"
-          />
+              src="/assets/images/arrowLeft.svg"
+              alt="arrowLeft"
+              width={20}
+              height={5}
+              className="object-contain"
+            />
           </button>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="w-full max-w-7xl bg-[#E4E4E4] text-black rounded-t-[1rem] flex flex-col md:flex-row justify-between items-center px-6 py-4 text-xs font-medium">
-        <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-          <a href="#" className="hover:underline">
-            TERMS OF USE
-          </a>
-          <a href="#" className="hover:underline">
-            PRIVACY POLICY
-          </a>
-          <a href="#" className="hover:underline">
-            CONTACT US
-          </a>
+      <div className="w-full bg-[#E4E4E4] text-black rounded-t-[1.75rem]">
+        <div className="mx-auto px-6 lg:px-10 flex flex-col md:flex-row justify-between items-center py-6 text-xs font-medium">
+          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href="#" className="hover:underline">
+              TERMS OF USE
+            </a>
+            <a href="#" className="hover:underline">
+              PRIVACY POLICY
+            </a>
+            <a href="#" className="hover:underline">
+              CONTACT US
+            </a>
+          </div>
+          <span className="mt-2 md:mt-0 opacity-70 text-center md:text-right">
+            COPYRIGHT BY @ ZOAVERSE - 2025
+          </span>
         </div>
-        <span className="mt-2 md:mt-0 opacity-70 text-center md:text-right">
-          COPYRIGHT BY @ ZOAVERSE - 2025
-        </span>
       </div>
     </footer>
   );

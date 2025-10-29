@@ -166,7 +166,7 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
 
   return (
     <div
-      className="w-full my-slider max-md:px-2 md:px-5 lg:!px-24 py-2 md:py-10 max-lg:h-[750px] self-center"
+      className="w-full my-slider max-md:px-2 md:px-5 lg:px-10 py-2 md:py-10 max-lg:h-[750px] self-center"
       id="venus"
     >
       <div
@@ -188,20 +188,25 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
                     "linear-gradient(0deg, #085DFF 13.75%, rgba(8, 93, 255, 0) 39.24%)",
                 }}
               />
-              <div className="absolute h-full w-full">
-                <div className="h-full text-white px-4 relative flex flex-col gap-2 w-max justify-end">
-                  <h3>{item.heading}</h3>
-                  <p
-                    ref={(el) => (subHeadingRef.current[index] = el)}
-                    style={{
-                      width: "500px",
-                      paddingRight: `${isRTL ? "0px" : "170px"}`,
-                      paddingLeft: `${isRTL ? "170px" : "0px"}`,
-                    }}
-                  >
-                    {item.subHeading}
-                  </p>
-                </div>
+              <div
+                className="absolute bottom-0 left-0 w-full px-4 pb-6"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                }}
+              >
+                <h3>{item.heading}</h3>
+                <p
+                  ref={(el) => (subHeadingRef.current[index] = el)}
+                  style={{
+                    width: "500px",
+                    paddingRight: `${isRTL ? "0px" : "170px"}`,
+                    paddingLeft: `${isRTL ? "170px" : "0px"}`,
+                  }}
+                >
+                  {item.subHeading}
+                </p>
               </div>
               <video
                 src={item.videoSrc}

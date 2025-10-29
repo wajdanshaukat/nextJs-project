@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Menu, X, Languages } from "lucide-react";
 import Image from "next/image";
+import { TbMenuDeep } from "react-icons/tb";
+import { IoClose } from "react-icons/io5";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const navItems = [
     { href: "#features", label: "Features" },
@@ -14,94 +16,140 @@ export default function Navbar() {
     { href: "#news", label: "News" },
   ];
 
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <section
       id="header"
-      className="w-full px-10 fixed top-0 left-0 z-[99999999999] bg-transparent"
+      className="w-full px-6 sm:px-8 fixed top-0 left-0 z-[9999] bg-transparent"
     >
-      <nav className="bg-transparent !z-[99999999999]">
-        {/* Background blur */}
-        <div
-          id="hedblur"
-          className="absolute inset-0 w-full h-[150vh] bg-[rgba(30,30,30,0.8)] backdrop-blur-md hidden"
-          style={{ zIndex: "-1" }}
-        ></div>
+      <nav className="relative bg-transparent">
+        {/* Background blur overlay */}
+        {open && (
+          <div className="fixed inset-0 bg-[rgba(0,0,0,0.4)] backdrop-blur-md z-[50] transition-opacity duration-500"></div>
+        )}
 
         {/* Main Navbar */}
-        <div className="w-full flex items-center justify-between px-6 py-4">
-          {/* Left side - logo + tabs */}
-          <div className="flex items-center gap-8">
-            {/* Logo */}
+        <div className="w-full flex items-center justify-between px-2 py-4 relative z-[60]">
+          {/* Left - logo + tabs */}
+          <div className="flex items-end gap-8">
             <Link href="#" className="flex items-center">
               <Image
                 src="/assets/images/logo.svg"
                 alt="Zoaverse logo"
                 width={300}
                 height={120}
+                className="w-[180px] sm:w-[200px] md:w-[250px] lg:w-[300px] h-auto"
               />
             </Link>
 
             {/* Desktop Menu */}
             <ul className="hidden lg:flex items-center gap-6">
               {navItems.map((item) => (
-                <li key={item.href} className="nav-item">
-                  <a
-                    href={item.href}
-                    className="nav-link border border-white rounded-full px-4 py-2 text-white text-lg tracking-wide hover:text-blue-400 transition"
+                <li key={item.href}>
+                  <button
+                    onClick={() => scrollToSection(item.href.replace("#", ""))}
+                    className="border-2 border-white rounded-full px-4 py-2 text-white text-lg tracking-wide hover:bg-white hover:text-black transition"
                   >
                     {item.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Right side - language + mobile toggle */}
-          <div className="flex items-center gap-4">
-            <button className="langbtn px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-white transition cursor-pointer">
-               عربي
+          {/* Right - language + hamburger */}
+          <div className="flex items-center gap-4" ref={menuRef}>
+            {/* Arabic Button (Desktop Only) */}
+            <button className="hidden lg:block px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-white transition cursor-pointer">
+              العربية
             </button>
 
-            {/* Mobile Toggle */}
-            <div className="lg:hidden flex items-center">
+            {/* Mobile Hamburger */}
+            <div className="lg:hidden relative">
               <button
                 onClick={() => setOpen((prev) => !prev)}
-                className="flex flex-col justify-center items-center w-10 h-10 rounded-full bg-blue-600 focus:outline-none transition-all duration-300"
+                className="relative w-16 h-10 flex items-center justify-center rounded-full bg-blue-600 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105 shadow-md"
               >
-                {open ? (
-                  <X size={20} color="white" />
-                ) : (
-                  <Menu size={20} color="white" />
-                )}
+                {/* Animated Icon Transition */}
+                <div className="relative w-6 h-6 flex items-center justify-center">
+                  <TbMenuDeep
+                    className={`absolute text-white w-7 h-7 transform transition-all duration-300 ease-in-out ${
+                      open
+                        ? "opacity-0 scale-0 rotate-90"
+                        : "opacity-100 scale-100 rotate-0"
+                    }`}
+                  />
+                  <IoClose
+                    className={`absolute text-white w-7 h-7 transform transition-all duration-300 ease-in-out ${
+                      open
+                        ? "opacity-100 scale-100 rotate-0"
+                        : "opacity-0 scale-0 -rotate-90"
+                    }`}
+                  />
+                </div>
+
+                {/* Hover Glow */}
+                <div className="absolute inset-0 rounded-full transition duration-300 opacity-0 hover:opacity-40 bg-blue-400 blur-md"></div>
               </button>
+
+              {/* Mobile Dropdown (below hamburger) */}
+              <div
+                className={`absolute right-0 mt-3 bg-blue-600 rounded-2xl shadow-xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                  open
+                    ? "max-h-[500px] opacity-100 visible w-[250px]"
+                    : "max-h-0 opacity-0 invisible w-[250px]"
+                }`}
+              >
+                <nav className="flex flex-col divide-y divide-white divide-opacity-40 text-white text-center">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.href}
+                      onClick={() => {
+                        scrollToSection(item.href.replace("#", ""));
+                        setOpen(false);
+                      }}
+                      className="py-4 px-6 uppercase text-[16px] hover:bg-blue-700 transition"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+
+                  {/* Arabic button inside dropdown */}
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="py-4 px-6 text-[16px] uppercase hover:bg-blue-700 transition"
+                  >
+                    العربية
+                  </button>
+                </nav>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Mobile Dropdown */}
-        <div
-          className={`absolute top-16 left-0 w-full bg-blue-600 rounded-b-3xl shadow-lg overflow-hidden transition-all duration-300 ${
-            open ? "max-h-max opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <nav className="flex flex-col divide-y divide-white divide-opacity-40 text-white">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="py-4 px-6 uppercase text-[18px] hover:bg-blue-700 transition"
-              >
-                {item.label}
-              </a>
-            ))}
-            <a
-              href="#lang"
-              className="py-4 px-6 uppercase text-[18px] hover:bg-blue-700 transition"
-            >
-              العربية
-            </a>
-          </nav>
         </div>
       </nav>
     </section>
