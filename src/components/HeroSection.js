@@ -155,7 +155,7 @@ export default function HeroSection() {
             {/* Content */}
             <div
               className="
-                relative z-[10] mx-auto lg:mt-28 mt-32 px-6 sm:px-8 lg:px-10 h-full 
+                relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-10 h-full 
                 flex items-center justify-center lg:justify-start
               "
             >
