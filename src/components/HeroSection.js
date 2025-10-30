@@ -216,7 +216,7 @@ export default function HeroSection() {
                 {/* CTA Buttons */}
                 <div
                   className="
-                    flex flex-row xs:flex-col 
+                    flex flex-col xs:flex-col sm:flex-row md:flex-row lg:flex-row  
                     items-center lg:items-start justify-center lg:justify-start gap-4
                   "
                 >
@@ -224,7 +224,7 @@ export default function HeroSection() {
                     className={`
                       inline-flex items-center justify-center gap-2 
                       px-6 py-3 border border-white bg-blue-600 text-white 
-                      font-semibold hover:bg-blue-700 transition-colors rounded-full
+                      font-semibold hover:bg-blue-700 transition-colors cursor-pointer rounded-full
                       ${
                         slide.ctaSecondary
                           ? "w-auto"

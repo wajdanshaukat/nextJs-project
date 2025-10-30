@@ -85,7 +85,7 @@ export default function NewsSection() {
 
   return (
     <section ref={rootRef} className="relative bg-black py-24 overflow-hidden">
-      <div className="mx-auto px-6 lg:px-10">
+      <div className="mx-auto px-6 md:px-8 lg:px-10">
         <div className="bg-[#F5F5F5] rounded-3xl p-8 lg:p-12 flex flex-col lg:flex-row lg:gap-8 items-start">
           {/* LEFT SECTION */}
           <div className="flex-shrink-0 w-full pb-4 lg:w-[450px] space-y-6">
@@ -108,13 +108,13 @@ export default function NewsSection() {
             <div className="flex gap-3 pt-4 justify-end">
               <button
                 onClick={prevSlide}
-                className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-400 transition-colors"
+                className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"
               >
                 <ChevronLeft size={20} />
               </button>
               <button
                 onClick={nextSlide}
-                className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-gray-900 transition-colors"
+                className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-gray-900 transition-colors cursor-pointer"
               >
                 <ChevronRight size={20} />
               </button>
@@ -122,15 +122,15 @@ export default function NewsSection() {
           </div>
 
           {/* RIGHT SECTION - Carousel */}
-          <div className="relative flex justify-center items-center overflow-hidden w-full">
+          <div className="relative flex justify-center items-center overflow-hidden w-full sm:px-0">
             <div className="flex gap-5 w-full justify-center">
               {events.map((event, index) => {
                 const isActive = index === currentSlide;
 
                 // Responsive card width
                 const cardWidth = isActive
-                  ? "w-[90%] sm:w-[45%] lg:w-[900px]"
-                  : "w-[70%] sm:w-[40%] lg:w-[400px]";
+                  ? "w-full sm:w-[80%] lg:w-[900px]"
+                  : "w-[90%] sm:w-[60%] lg:w-[400px]";
 
                 // Determine visible cards dynamically based on screenWidth
                 let isVisible = false;

@@ -139,10 +139,10 @@ export default function FeatureSection() {
       ref={rootRef}
       className="relative z-10 lg:py-24 overflow-hidden bg-transparent h-full"
     >
-      <div className="mx-auto px-8 lg:px-10 relative">
+      <div className="mx-auto lg:ml-12 ml-8 relative">
         {/* Header */}
         <div className="flex flex-col mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-regular">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-regular px-4">
             Why Choose
             <br />
             <span className="text-brand-200 text-[50px] sm:text-[70px] md:text-[100px] font-extrabold italic block leading-[1]">
@@ -151,14 +151,14 @@ export default function FeatureSection() {
           </h2>
 
           {/* Tabs + Arrows */}
-          <div className="mt-4 flex flex-col sm:flex-row justify-between items-end gap-4">
+          <div className="mt-4 flex flex-col sm:flex-row px-4 justify-between items-end gap-4">
             {/* Tabs row */}
-            <div className="flex gap-3 flex-nowrap overflow-x-auto sm:overflow-x-visible">
+            <div className="flex gap-3 flex-wrap">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`text-xs uppercase tracking-wide border border-white px-4 py-2 rounded-full transition-all flex-shrink-0 ${
+                  className={`text-xs uppercase tracking-wide border border-white px-4 py-2 cursor-pointer rounded-full transition-all flex-shrink-0 ${
                     activeTab === tab
                       ? "bg-white text-black font-semibold"
                       : "text-white/80 hover:bg-white/10"
@@ -173,13 +173,13 @@ export default function FeatureSection() {
             <div className="flex gap-4 mt-2 sm:mt-0 sm:justify-end">
               <button
                 onClick={handleBack}
-                className="p-3 rounded-full bg-white hover:bg-white/20 transition"
+                className="p-3 rounded-full bg-white hover:bg-white/20 transition cursor-pointer"
               >
                 <IoIosArrowBack className="text-black text-2xl" />
               </button>
               <button
                 onClick={handleNext}
-                className="p-3 rounded-full bg-white hover:bg-white/20 transition"
+                className="p-3 rounded-full bg-white hover:bg-white/20 transition cursor-pointer"
               >
                 <IoIosArrowForward className="text-black text-2xl" />
               </button>

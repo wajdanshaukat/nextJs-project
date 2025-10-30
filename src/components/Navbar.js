@@ -56,7 +56,7 @@ export default function Navbar() {
         {/* Main Navbar */}
         <div className="w-full flex items-center justify-between px-2 py-4 relative z-[60]">
           {/* Left - logo + tabs */}
-          <div className="flex items-end gap-8">
+          <div className="flex items-end gap-12">
             <Link href="#" className="flex items-center">
               <Image
                 src="/assets/images/logo.svg"
@@ -73,7 +73,7 @@ export default function Navbar() {
                 <li key={item.href}>
                   <button
                     onClick={() => scrollToSection(item.href.replace("#", ""))}
-                    className="border-2 border-white rounded-full px-4 py-2 text-white text-lg tracking-wide hover:bg-white hover:text-black transition"
+                    className="border-2 border-white rounded-full px-4 py-1 text-white text-lg tracking-wide hover:bg-white hover:text-black cursor-pointer transition"
                   >
                     {item.label}
                   </button>

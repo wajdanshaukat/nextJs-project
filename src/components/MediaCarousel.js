@@ -230,7 +230,7 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
           <div className="w-full mx-[10px] flex flex-row gap-2 justify-end ltr:mr-10 rtl:ml-10">
             <button
               onClick={() => animateCarousel("prev")}
-              className="z-10 bg-white/80 hover:bg-white p-3 w-12 h-12 flex items-center justify-center rotate-180 rounded-full shadow-lg"
+              className="z-10 bg-white/80 hover:bg-white p-3 w-12 h-12 flex items-center justify-center rotate-180 rounded-full shadow-lg cursor-pointer"
             >
               <Image
                 src="assets/images/arrowIcon-1.svg"
@@ -242,7 +242,7 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
             </button>
             <button
               onClick={() => animateCarousel("next")}
-              className="z-10 bg-white/80 hover:bg-white p-3 w-12 h-12 flex items-center justify-center rounded-full shadow-lg"
+              className="z-10 bg-white/80 hover:bg-white p-3 w-12 h-12 flex items-center justify-center rounded-full shadow-lg cursor-pointer"
             >
               <Image
                 src="assets/images/arrowIcon-1.svg"
