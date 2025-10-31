@@ -4,13 +4,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useGsap from "@/hooks/useGsap";
 import Image from "next/image";
+import i18next from "@/i18n/client";
+import { useTranslation } from "react-i18next";
 
 export default function HeroSection() {
   useGsap();
+  const { t } = useTranslation();
   const rootRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [smallMobile, setSmallMobile] = useState(false);
+  const [lang, setLang] = useState(i18next.language || "en");
 
   const slideRefs = useRef([]);
 
@@ -34,50 +38,66 @@ export default function HeroSection() {
     });
   }, [currentSlide]);
 
+  useEffect(() => {
+    // Try to sync language from localStorage or i18next
+    const savedLang =
+      localStorage.getItem("language") || i18next.language || "en";
+
+    setLang(savedLang);
+    i18next.changeLanguage(savedLang);
+    document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+  }, []);
+
+  useEffect(() => {
+    const handleLanguageChange = (lng) => {
+      setLang(lng);
+      document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
+      localStorage.setItem("language", lng);
+    };
+    i18next.on("languageChanged", handleLanguageChange);
+    return () => i18next.off("languageChanged", handleLanguageChange);
+  }, []);
+
   const heroSlides = [
     {
       id: 1,
-      title: "JUMP INTO THE VERSE",
+      title: t("jumpIntoTheVerse"),
       subtitle: "",
-      description:
-        "Discover the future of virtual experiences with Zoaverse - an immersive platform for events, shows, classes, and meetings in 3D interactive spaces. Engage, learn, and connect like never before.",
+      description: t("boundlessWorldDesciption"),
       imageDesktop: "/assets/images/hero-1.png",
       imageMobile: "/assets/images/hero-1-mobile.png",
-      cta: "DOWNLOAD NOW",
+      cta: t("downloadText"),
       ctaSecondary: null,
     },
     {
       id: 2,
-      title: "HUNT OR BE HUNTED",
+      title: t("huntOrBeHunted"),
       subtitle: "ROUND3",
-      description:
-        "Step into Round3 Qurtobah, a desert-themed Prop & Hunt adventure inspired by Arabian heritage. Hide, hunt, and outsmart your rivals in a setting full of tension and excitement.",
+      description: t("round3Description"),
       imageDesktop: "/assets/images/hero-2.png",
       imageMobile: "/assets/images/hero-2-mobile.png",
-      cta: "DOWNLOAD NOW",
-      ctaSecondary: "MORE INFO",
+      cta: t("downloadText"),
+      ctaSecondary: t("moreInfo"),
     },
     {
       id: 3,
-      title: "THINK FAST, LAUGH HARDER",
+      title: t("thinkFastLaughHarder"),
       subtitle: "ZERO IQ",
-      description:
-        "Two teams go head-to-head answering unpredictable, hilarious, and sometimes downright silly questions. Think fast, laugh harder, and embrace the chaos.",
+      description: t("zeroIqDescription"),
       imageDesktop: "/assets/images/hero-3.png",
       imageMobile: "/assets/images/hero-3-mobile.png",
-      cta: "DOWNLOAD NOW",
-      ctaSecondary: "MORE INFO",
+      cta: t("downloadText"),
+      ctaSecondary: t("moreInfo"),
     },
     {
       id: 4,
-      title: "NO MERCY, NO ESCAPE",
+      title: t("noMercyNoEscape"),
       subtitle: "ROUND3",
-      description:
-        "Enter Round3 Alpha, a futuristic Prop & Hunt clash where advanced robots face off against heavily armed soldiers. Tactics, technology, and survival collide in the ultimate showdown.",
+      description: t("round3AlphaDescription"),
       imageDesktop: "/assets/images/hero-4.png",
       imageMobile: "/assets/images/hero-4-mobile.png",
-      cta: "DOWNLOAD NOW",
-      ctaSecondary: "MORE INFO",
+      cta: t("downloadText"),
+      ctaSecondary: t("moreInfo"),
     },
   ];
 
@@ -141,6 +161,8 @@ export default function HeroSection() {
             {/* Background Image */}
             <div
               className={`absolute inset-0 bg-no-repeat bg-cover ${
+                lang === "ar" ? "[transform:scaleX(-1)]" : ""
+              } ${
                 smallMobile
                   ? "bg-[position:center_top_20%]"
                   : isMobile
@@ -148,27 +170,26 @@ export default function HeroSection() {
                   : "bg-center"
               }`}
               style={{ backgroundImage: `url(${bgImage})` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/20"></div>
-            </div>
+            ></div>
 
             {/* Content */}
             <div
-              className="
-                relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-10 h-full 
-                flex items-center justify-center lg:justify-start
-              "
+              className={`relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-10 h-full flex items-center 
+                ${lang === "ar" ? "justify-between" : "justify-start"}
+              `}
             >
               <div
-                className="
-                  max-w-2xl relative w-full 
-                  !text-center lg:!text-left
-                  mx-auto lg:mx-0
-                 "
+                className={`max-w-2xl relative w-full mx-auto lg:mx-0 ${
+                  lang === "ar"
+                    ? "!text-center lg:!text-right"
+                    : "!text-center lg:!text-left"
+                }`}
               >
                 {/* Subtitle */}
                 <div
-                  className={`absolute -top-20 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-0 h-[60px] items-center hidden lg:flex ${
+                  className={`absolute -top-20 ${
+                    lang === "ar" ? "right-0" : "left-0"
+                  } h-[60px] items-center hidden lg:flex ${
                     slide.subtitle
                       ? "opacity-100 visible"
                       : "opacity-0 invisible"
@@ -176,7 +197,11 @@ export default function HeroSection() {
                 >
                   {slide.subtitle === "ROUND3" ? (
                     <Image
-                      src="/assets/images/round3-logo.png"
+                      src={
+                        lang === "ar"
+                          ? "/assets/images/round3-ar.png"
+                          : "/assets/images/round3-en.png"
+                      }
                       alt="Round3"
                       width={160}
                       height={60}
@@ -223,7 +248,7 @@ export default function HeroSection() {
                   <button
                     className={`
                       inline-flex items-center justify-center gap-2 
-                      px-6 py-3 border border-white bg-blue-600 text-white 
+                      px-6 py-4 border border-white bg-blue-600 text-white 
                       font-semibold hover:bg-blue-700 transition-colors cursor-pointer rounded-full
                       ${
                         slide.ctaSecondary
@@ -252,32 +277,42 @@ export default function HeroSection() {
                   </button>
 
                   {slide.ctaSecondary && (
-                    <button
+                    <a
+                      href={
+                        slide.subtitle === "ROUND3"
+                          ? "https://www.zoaverse.com/round3/"
+                          : slide.subtitle === "ZERO IQ"
+                          ? "https://www.zoaverse.com/zero-iq/"
+                          : ""
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="
                         inline-flex gap-2 items-center justify-center 
-                        px-6 py-3 border border-white text-white font-semibold 
-                        rounded-full cursor-pointer
+                        px-6 py-4 border border-white text-white font-semibold 
+                        rounded-full cursor-pointer hover:bg-white/20
                       "
                     >
                       {slide.ctaSecondary}
                       <Image
                         src="assets/images/arrowLeft.svg"
                         alt="arrowLeft"
-                        className="w-4 h-4"
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          lang === "ar" ? "scale-x-[-1]" : ""
+                        }`}
                         width={4}
                         height={4}
                       />
-                    </button>
+                    </a>
                   )}
                 </div>
               </div>
 
               {/* Dot Navigation */}
               <div
-                className="
-                  absolute right-10 top-[68%] -translate-y-1/2 
-                  hidden lg:flex items-center gap-3 z-20
-                "
+                className={`absolute ${
+                  lang === "ar" ? "left-10" : "right-10"
+                } top-[68%] -translate-y-1/2 hidden lg:flex items-center gap-3 z-20`}
               >
                 {heroSlides.map((_, dotIndex) => (
                   <button

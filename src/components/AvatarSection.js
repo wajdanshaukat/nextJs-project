@@ -222,10 +222,14 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 export default function AvatarSection() {
   const rootRef = useRef(null);
   gsap.registerPlugin(ScrollTrigger);
+
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ar";
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -233,13 +237,13 @@ export default function AvatarSection() {
 
       mm.add("(min-width: 1024px)", () => {
         gsap.set(".info-card.left", {
-          rotation: -12,
-          xPercent: -10,
+          rotation: isRTL ? 12 : -12,
+          xPercent: isRTL ? 10 : -10,
           yPercent: 15,
         });
         gsap.set(".info-card.right", {
-          rotation: 12,
-          xPercent: 10,
+          rotation: isRTL ? -12 : 12,
+          xPercent: isRTL ? -10 : 10,
           yPercent: 15,
         });
       });
@@ -309,149 +313,167 @@ export default function AvatarSection() {
       ctx.revert();
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isRTL, i18n.language]);
 
   return (
-    <div className="relative w-full bg-black flex justify-center items-center py-24 sm:py-28 md:py-32 overflow-visible">
-      <section
-        ref={rootRef}
-        className="relative w-[95%] sm:w-[90%] md:w-[88%] max-w-7xl min-h-[80vh] flex flex-col items-center justify-start rounded-[40px] py-12 sm:py-16 overflow-visible"
-        style={{
-          background: "linear-gradient(180deg, #a6a5a5 0%, #f1f1f1 38.9%)",
-        }}
-        id="identity"
-      >
-        {/* Center avatar */}
-        <div className="center-avatar relative w-full flex justify-center z-20 -mt-24 sm:-mt-28 md:-mt-36">
-          <div className="relative w-[95%] sm:w-[80%] md:w-[70%] lg:w-[65%] xl:w-[60%] z-10">
-            <Image
-              src="/assets/images/dummy-avatar.png"
-              alt="Main Avatar"
-              width={1000}
-              height={600}
-              className="rounded-2xl object-contain mx-auto relative z-10"
-              priority
-            />
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-white via-white/50 to-transparent opacity-60 z-[20]" />
-          </div>
-
-          {/* Floating companions */}
-          <div className="absolute top-[-4%] right-[8%] sm:right-[10%] md:right-[13%] floating-companion w-20 h-20 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-66 lg:h-66 z-[30]">
-            <Image
-              src="/assets/images/companion-2.png"
-              alt="Floating Companion Right"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <div className="absolute top-[80%] left-[8%] sm:left-[12%] md:left-[17%] floating-companion w-20 h-20 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-52 lg:h-52 z-[30]">
-            <Image
-              src="/assets/images/companion-1.png"
-              alt="Floating Companion Left"
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
-
-        {/* Text */}
-        <div className="identity-text mt-12 text-center px-4 sm:px-6 z-10">
-          <div className="inline-block">
-            <h2 className="text-gray-800 font-regular leading-snug">
-              <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl whitespace-nowrap">
-                EXPRESS YOUR UNIQUE
-              </span>
-              <span className="block text-black font-extrabold italic text-[40px] sm:text-[55px] md:text-[70px] lg:text-[80px] leading-tight whitespace-nowrap">
-                IDENTITY
-              </span>
-            </h2>
-          </div>
-
-          <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-md leading-relaxed px-2">
-            Bring your personality to life with endless customization. From
-            quirky headwear and stylish crowns to expressive gestures and
-            one-of-a-kind companions, Zoaverse gives you all the tools to stand
-            out.
-          </p>
-        </div>
-
-        {/* Cards */}
-        <div className="relative mt-16 sm:mt-20 w-full max-w-8xl z-10 flex flex-col lg:flex-row lg:justify-between lg:items-end items-center gap-8 sm:gap-10 px-4 overflow-visible">
-          {/* Left Card */}
-          <div className="info-card left relative flex justify-center scale-95 sm:scale-100 w-full sm:w-[80%] md:w-[70%] lg:w-[46%] xl:w-[44%] overflow-visible order-1 lg:order-none">
-            <div className="overlap-group-2 relative">
-              <div className="rectangle"></div>
-              <div className="rectangle-2"></div>
-              <div className="div-2">
-                <div className="text-wrapper">PERSONALIZED</div>
-                <p className="p">
-                  Customize your avatar to match your vibe with limitless
-                  expressions, accessories, and more.
-                </p>
-              </div>
-              <div className="ellipse"></div>
+    <section className="relative bg-black py-24 sm:py-28 md:py-32 overflow-visible">
+      <div className="mx-auto px-6 md:px-8 lg:px-10">
+        {/* Inner box: matches News Section width/padding behavior but keeps your gradient */}
+        <div
+          ref={rootRef}
+          id="identity"
+          className="rounded-3xl p-8 lg:p-12 flex flex-col items-center justify-start w-full mx-auto overflow-visible relative"
+          style={{
+            // keep the avatar gradient background — applied to this inner box
+            background: "linear-gradient(180deg, #a6a5a5 0%, #f1f1f1 38.9%)",
+          }}
+        >
+          {/* Center avatar (kept the same) */}
+          <div className="center-avatar relative w-full flex justify-center z-20 -mt-24 sm:-mt-28 md:-mt-36">
+            <div className="relative w-[95%] sm:w-[80%] md:w-[70%] lg:w-[65%] xl:w-[60%] z-10">
               <Image
-                className="vector s1"
-                src="/assets/images/Vector.png"
-                alt="Personalized Icon"
-                width={50}
-                height={50}
+                src="/assets/images/dummy-avatar.png"
+                alt="Main Avatar"
+                width={1000}
+                height={600}
+                className="rounded-2xl object-contain mx-auto relative z-10"
+                priority
+              />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-white via-white/50 to-transparent opacity-60 z-[20]" />
+            </div>
+
+            {/* Floating companions */}
+            <div className="absolute top-[-4%] right-[8%] sm:right-[10%] md:right-[13%] floating-companion w-20 h-20 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-66 lg:h-66 z-[30]">
+              <Image
+                src="/assets/images/companion-2.png"
+                alt="Floating Companion Right"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="absolute top-[80%] left-[8%] sm:left-[12%] md:left-[17%] floating-companion w-20 h-20 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-52 lg:h-52 z-[30]">
+              <Image
+                src="/assets/images/companion-1.png"
+                alt="Floating Companion Left"
+                fill
+                className="object-contain"
               />
             </div>
           </div>
 
-          {/* Right Card */}
-          <div className="info-card right relative flex justify-center scale-95 sm:scale-100 w-full sm:w-[80%] md:w-[70%] lg:w-[46%] xl:w-[44%] overflow-visible order-2 lg:order-none">
-            <div className="overlap-group-2 relative">
-              <div className="rectangle-3"></div>
-              <div className="rectangle-2c"></div>
-              <div className="div-2">
-                <div className="text-wrapper">COMPANIONS</div>
-                <p className="p4">
-                  {`From playful creatures to futuristic bots, they're more than
-                  accessories—they're part of your journey.`}
-                </p>
+          {/* Text */}
+          <div className="identity-text mt-12 text-center px-4 sm:px-6 z-10">
+            <div className="inline-block">
+              <h2 className="text-gray-800 font-regular leading-snug">
+                <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl whitespace-nowrap">
+                  {t("expressYourUnique")}
+                </span>
+                <span className="block text-black font-extrabold italic text-[40px] sm:text-[55px] md:text-[70px] lg:text-[80px] leading-tight whitespace-nowrap">
+                  {t("identity")}
+                </span>
+              </h2>
+            </div>
+
+            <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-md leading-relaxed px-2">
+              {t("avatarDescription")}
+            </p>
+          </div>
+
+          {/* Cards */}
+          <div
+            className="
+              relative mt-16 sm:mt-20 w-full z-10 flex flex-col 
+              lg:flex-row lg:justify-between lg:items-end items-center 
+              gap-8 sm:gap-10 px-4 overflow-visible
+              xl:max-w-[95%] xl:px-0
+            "
+          >
+            {/* Left Card */}
+            <div
+              className="
+                info-card left relative flex justify-center scale-95 sm:scale-100 
+                w-full sm:w-[80%] md:w-[70%] lg:w-[46%] xl:w-[44%] 
+                overflow-visible
+                xl:w-[42%] 2xl:absolute 
+                ltr:2xl:left-0 rtl:2xl:right-0 2xl:bottom-0
+              "
+            >
+              <div className="overlap-group-2 relative">
+                <div className="rectangle"></div>
+                <div className="rectangle-2"></div>
+                <div className="div-2">
+                  <div className="text-wrapper">{t("personalized")}</div>
+                  <p className="p">{t("personalizedDesc")}</p>
+                </div>
+                <div className="ellipse"></div>
+                <Image
+                  className="vector s1"
+                  src="/assets/images/Vector.png"
+                  alt="Personalized Icon"
+                  width={50}
+                  height={50}
+                />
               </div>
-              <div className="ellipse"></div>
-              <Image
-                className="vector"
-                src="/assets/images/smile-circle-svgrepo-com 1.png"
-                alt="Companions Icon"
-                width={50}
-                height={50}
-              />
+            </div>
+
+            {/* Right Card */}
+            <div
+              className="
+              info-card right relative flex justify-center scale-95 sm:scale-100 
+              w-full sm:w-[80%] md:w-[70%] lg:w-[46%] xl:w-[44%] 
+              overflow-visible
+              xl:w-[42%] 2xl:absolute 
+              ltr:2xl:right-0 rtl:2xl:left-0 2xl:bottom-0
+            "
+            >
+              <div className="overlap-group-2 relative">
+                <div className="rectangle-3"></div>
+                <div className="rectangle-2c"></div>
+                <div className="div-2">
+                  <div className="text-wrapper">{t("companions")}</div>
+                  <p className="p4">{t("companionsDescri")}</p>
+                </div>
+                <div className="ellipse"></div>
+                <Image
+                  className="vector"
+                  src="/assets/images/smile-circle-svgrepo-com 1.png"
+                  alt="Companions Icon"
+                  width={50}
+                  height={50}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Decorative Circle Images (from Figma) */}
-        <div className="absolute top-[8%] left-[5%] w-16 h-16 z-[5] opacity-90">
-          <Image
-            src="/assets/images/Asset 10@4x 1.png"
-            alt="Yellow Circle"
-            fill
-            className="object-contain"
-          />
-        </div>
+          {/* Decorative Circle Images (kept same positions) */}
+          <div className="absolute top-[8%] left-[5%] w-16 h-16 z-[5] opacity-90">
+            <Image
+              src="/assets/images/Asset 10@4x 1.png"
+              alt="Yellow Circle"
+              fill
+              className="object-contain"
+            />
+          </div>
 
-        <div className="absolute top-[18%] right-[8%] w-12 h-12 z-[5] opacity-90">
-          <Image
-            src="/assets/images/Asset 8@4x 1.png"
-            alt="Purple Circle 1"
-            fill
-            className="object-contain"
-          />
-        </div>
+          <div className="absolute top-[18%] right-[8%] w-12 h-12 z-[5] opacity-90">
+            <Image
+              src="/assets/images/Asset 8@4x 1.png"
+              alt="Purple Circle 1"
+              fill
+              className="object-contain"
+            />
+          </div>
 
-        <div className="absolute bottom-[15%] left-[40%] w-8 h-8 z-[5] opacity-90">
-          <Image
-            src="/assets/images/Asset 8@4x 1.png"
-            alt="Purple Circle 2"
-            fill
-            className="object-contain"
-          />
+          <div className="absolute bottom-[15%] left-[40%] w-8 h-8 z-[5] opacity-90">
+            <Image
+              src="/assets/images/Asset 8@4x 1.png"
+              alt="Purple Circle 2"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -15,15 +15,15 @@ module.exports = {
         geistMono: ["var(--font-geist-mono)", "monospace"],
         almarai: ["Almarai", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
-       
       },
-    },
-    screens: {
-      xs: '425px',
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
+      screens: {
+        xs: "425px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1620px",
+      },
     },
   },
   plugins: [],

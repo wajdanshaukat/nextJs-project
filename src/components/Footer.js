@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const scrollToSection = (id) => {
   const element = document.getElementById(id.toLowerCase());
@@ -12,6 +13,14 @@ const scrollToSection = (id) => {
 };
 
 export default function Footer() {
+  const { t, i18n } = useTranslation();
+
+  const footerLinks = [
+    { label: t("features"), id: "features" },
+    { label: t("avatars"), id: "avatars" },
+    { label: t("media"), id: "media" },
+    { label: t("news"), id: "news" },
+  ];
   return (
     <footer className="w-full bg-black text-white relative z-50 px-6 lg:px-10">
       {/* Top Section */}
@@ -19,20 +28,24 @@ export default function Footer() {
         {/* Left: Logo + Links */}
         <div className="flex flex-col items-center md:items-start gap-6 w-full md:w-1/3 order-1">
           <Image
-            src="/assets/images/logo.svg"
+            src={
+              i18n.language === "ar"
+                ? "/assets/images/Logo_ar.svg"
+                : "/assets/images/logo.svg"
+            }
             alt="Zoaverse"
             width={160}
             height={40}
             className="object-contain"
           />
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-            {["Features", "Avatars", "Media", "News"].map((item) => (
+            {footerLinks.map((item) => (
               <button
-                key={item}
-                onClick={() => scrollToSection(item)}
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
                 className="border-2 border-white text-white text-sm px-4 py-2 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
               >
-                {item}
+                {item.label}
               </button>
             ))}
           </div>
@@ -40,7 +53,7 @@ export default function Footer() {
 
         {/* Center: Social (after Newsletter on mobile) */}
         <div className="flex flex-col items-center gap-5 w-full md:w-1/3 order-3 md:order-2">
-          <h3 className="text-lg font-medium">Follow us</h3>
+          <h3 className="text-lg font-medium">{t("followUs")}</h3>
           <div className="flex items-center gap-4">
             {[
               {
@@ -110,22 +123,24 @@ export default function Footer() {
 
         {/* Right: Newsletter */}
         <div className="flex flex-col gap-4 items-center md:items-start w-full md:w-1/3 order-2 md:order-3">
-          <h3 className="text-lg font-medium">Newsletter</h3>
+          <h3 className="text-lg font-medium">{t("newsletter")}</h3>
 
           <input
             type="email"
-            placeholder="Email address"
+            placeholder={t("emailPlaceholder")}
             className="w-full max-w-sm bg-[#E4E4E4] text-black placeholder:text-black/60 rounded-full py-2.5 px-5 outline-none"
           />
 
           <button className="w-full max-w-sm bg-[#1465FF] text-white text-sm font-semibold rounded-full flex items-center justify-between px-6 py-2.5 hover:bg-blue-600 transition">
-            <span>SUBSCRIBE</span>
+            <span>{t("subscribe")}</span>
             <Image
               src="/assets/images/arrowLeft.svg"
               alt="arrowLeft"
               width={20}
               height={5}
-              className="object-contain"
+              className={`object-contain ${
+            i18n.language === "ar" ? "rotate-180" : ""
+          }`}
             />
           </button>
         </div>
@@ -140,25 +155,25 @@ export default function Footer() {
               target="_blank"
               className="hover:underline"
             >
-              TERMS OF USE
+              {t("termsOfUse")}
             </a>
             <a
               href="https://zoaverse.gitbook.io/docs/alshrwt-w-alkhswsyh/syash-alkhswsyh"
               target="_blank"
               className="hover:underline"
             >
-              PRIVACY POLICY
+              {t("privacyPolicy")}
             </a>
             <a
               href="mailto:zoa@zoaverse.com"
               className="hover:underline"
               target="_blank"
             >
-              CONTACT US
+              {t("contactUs")}
             </a>
           </div>
           <span className="mt-2 md:mt-0 opacity-70 text-center md:text-right">
-            COPYRIGHT BY @ ZOAVERSE - 2025
+            {t("copyright")}
           </span>
         </div>
       </div>

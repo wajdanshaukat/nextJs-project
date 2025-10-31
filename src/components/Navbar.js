@@ -4,16 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { TbMenuDeep } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
+import i18next from "@/i18n/client";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
+  const { t } = useTranslation();
+  const [lang, setLang] = useState(i18next.language || "en");
 
   const navItems = [
-    { href: "#features", label: "Features" },
-    { href: "#avatars", label: "Avatars" },
-    { href: "#media", label: "Media" },
-    { href: "#news", label: "News" },
+    { href: "#features", label: t("features") },
+    { href: "#avatars", label: t("avatars") },
+    { href: "#media", label: t("media") },
+    { href: "#news", label: t("news") },
   ];
 
   // Lock body scroll when menu is open
@@ -30,6 +34,24 @@ export default function Navbar() {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleLanguage = () => {
+    const newLang = lang === "ar" ? "en" : "ar";
+    setLang(newLang);
+    i18next.changeLanguage(newLang);
+    document.documentElement.lang = newLang;
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("language", newLang);
+  };
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem("language");
+    if (savedLang) {
+      setLang(savedLang);
+      i18next.changeLanguage(savedLang);
+      document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+    }
   }, []);
 
   const scrollToSection = (id) => {
@@ -59,7 +81,11 @@ export default function Navbar() {
           <div className="flex items-end gap-12">
             <Link href="#" className="flex items-center">
               <Image
-                src="/assets/images/logo.svg"
+                src={
+                  lang === "ar"
+                    ? "/assets/images/Logo_ar.svg"
+                    : "/assets/images/logo.svg"
+                }
                 alt="Zoaverse logo"
                 width={300}
                 height={120}
@@ -83,20 +109,33 @@ export default function Navbar() {
           </div>
 
           {/* Right - language + hamburger */}
-          <div className="flex items-center gap-4" ref={menuRef}>
+          <div
+            className={`flex items-center gap-4 ${
+              lang === "ar" ? "flex-row-reverse" : ""
+            }`}
+            ref={menuRef}
+          >
             {/* Arabic Button (Desktop Only) */}
-            <button className="hidden lg:block px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-white transition cursor-pointer">
-              العربية
+            <button
+              onClick={toggleLanguage}
+              className="hidden lg:block px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-white transition cursor-pointer"
+            >
+              {lang === "ar" ? "English" : "العربية"}
             </button>
-
             {/* Mobile Hamburger */}
             <div className="lg:hidden relative">
               <button
                 onClick={() => setOpen((prev) => !prev)}
-                className="relative w-16 h-10 flex items-center justify-center rounded-full bg-blue-600 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105 shadow-md"
+                className={`relative w-16 h-10 flex items-center justify-center rounded-full bg-blue-600 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105 shadow-md ${
+                  lang === "ar" ? "flex-row-reverse" : ""
+                }`}
               >
                 {/* Animated Icon Transition */}
-                <div className="relative w-6 h-6 flex items-center justify-center">
+                <div
+                  className={`relative w-6 h-6 flex items-center justify-center ${
+                    lang === "ar" ? "scale-x-[-1]" : ""
+                  }`}
+                >
                   <TbMenuDeep
                     className={`absolute text-white w-7 h-7 transform transition-all duration-300 ease-in-out ${
                       open
@@ -117,9 +156,11 @@ export default function Navbar() {
                 <div className="absolute inset-0 rounded-full transition duration-300 opacity-0 hover:opacity-40 bg-blue-400 blur-md"></div>
               </button>
 
-              {/* Mobile Dropdown (below hamburger) */}
+              {/* Mobile Dropdown */}
               <div
-                className={`absolute right-0 mt-3 bg-blue-600 rounded-2xl shadow-xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                className={`absolute ${
+                  lang === "ar" ? "left-0" : "right-0"
+                } mt-3 bg-blue-600 rounded-2xl shadow-xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                   open
                     ? "max-h-[500px] opacity-100 visible w-[250px]"
                     : "max-h-0 opacity-0 invisible w-[250px]"
@@ -139,12 +180,15 @@ export default function Navbar() {
                     </button>
                   ))}
 
-                  {/* Arabic button inside dropdown */}
+                  {/* Language Toggle */}
                   <button
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      toggleLanguage();
+                      setOpen(false);
+                    }}
                     className="py-4 px-6 text-[16px] uppercase hover:bg-blue-700 transition"
                   >
-                    العربية
+                    {lang === "ar" ? "English" : "العربية"}
                   </button>
                 </nav>
               </div>

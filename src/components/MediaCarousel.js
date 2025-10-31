@@ -2,11 +2,13 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
-const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
+const VenusCarousel = ({ isOpen = false }) => {
   const containerRef1 = useRef(null);
   const itemsRef = useRef([]);
   const subHeadingRef = useRef([]);
+  const { t, i18n } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -14,38 +16,38 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
     {
       id: 1,
       videoSrc: "assets/images/f1_video.mp4",
-      heading: "Art Gallery",
-      subHeading: "Explore immersive digital art in our virtual lobby.",
+      heading: t("artGalleryHeading"),
+      subHeading: t("artGallerySubHeading"),
     },
     {
       id: 2,
       videoSrc: "assets/images/f2_video.mp4",
-      heading: "Lobby",
-      subHeading: "Welcome to a modern and elegant digital space.",
+      heading: t("lobbyHeading"),
+      subHeading: t("lobbySubHeading"),
     },
     {
       id: 3,
       videoSrc: "assets/images/f3_video.mp4",
-      heading: "Conference Room",
-      subHeading: "Collaborate with teams in a futuristic environment.",
+      heading:t("conferenceRoomHeading"),
+      subHeading: t("conferenceRoomSubHeading"),
     },
     {
       id: 4,
       videoSrc: "assets/images/f1_video.mp4",
-      heading: "Open Space",
-      subHeading: "Flexible zones for creative collaboration.",
+      heading: t("openSpaceHeading"),
+      subHeading:  t("openSpaceSubHeading"),
     },
     {
       id: 5,
       videoSrc: "assets/images/f2_video.mp4",
-      heading: "Lounge Area",
-      subHeading: "Relax and connect in a cozy digital lounge.",
+      heading: t("loungeAreaHeading"),
+      subHeading: t("loungeAreaSubHeading"),
     },
     {
       id: 6,
       videoSrc: "assets/images/f3_video.mp4",
-      heading: "Meeting Hub",
-      subHeading: "A private yet collaborative meeting environment.",
+      heading: t("meetingHubHeading"),
+      subHeading: t("meetingHubSubHeading"),
     },
   ];
 
@@ -199,10 +201,9 @@ const VenusCarousel = ({ isRTL = false, isOpen = false }) => {
                 <h3>{item.heading}</h3>
                 <p
                   ref={(el) => (subHeadingRef.current[index] = el)}
+                  className={`break-words max-w-[400px]`}
                   style={{
                     width: "500px",
-                    paddingRight: `${isRTL ? "0px" : "170px"}`,
-                    paddingLeft: `${isRTL ? "170px" : "0px"}`,
                   }}
                 >
                   {item.subHeading}

@@ -6,7 +6,7 @@ import FeatureSection from "@/components/FeaturesSection";
 import AvatarSection from "@/components/AvatarSection";
 import MediaCarousel from "@/components/MediaCarousel";
 import NewsSection from "@/components/NewsSection";
-import EcosystemSection from "@/components/EcosystemSection";
+// import EcosystemSection from "@/components/EcosystemSection";
 import Image from "next/image";
 
 export default function Page() {
@@ -42,7 +42,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="relative bg-[#0b0b0c] text-white overflow-hidden">
+      <div className="relative bg-black text-white overflow-hidden">
         {/* Hero Section */}
         <HeroSection />
 
