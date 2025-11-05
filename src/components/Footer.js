@@ -22,9 +22,9 @@ export default function Footer() {
     { label: t("news"), id: "news" },
   ];
   return (
-    <footer className="w-full bg-black text-white relative z-50 px-6 lg:px-10">
+    <footer className="w-full bg-black text-white relative z-50 px-6 md:px-8 lg:px-12">
       {/* Top Section */}
-      <div className="mx-auto px-6 lg:px-10 flex flex-col md:flex-row justify-between items-start gap-8 py-10">
+      <div className="mx-auto flex flex-col md:flex-row justify-between items-start gap-8 py-10">
         {/* Left: Logo + Links */}
         <div className="flex flex-col items-center md:items-start gap-6 w-full md:w-1/3 order-1">
           <Image

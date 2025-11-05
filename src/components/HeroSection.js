@@ -174,7 +174,7 @@ export default function HeroSection() {
 
             {/* Content */}
             <div
-              className={`relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-10 h-full flex items-center 
+              className={`relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-12 h-full flex items-center 
                 ${lang === "ar" ? "justify-between" : "justify-start"}
               `}
             >
@@ -221,8 +221,9 @@ export default function HeroSection() {
                 {/* Title */}
                 <h1
                   className="
-                    text-3xl sm:text-4xl md:text-5xl lg:text-7xl 
+                    text-5xl sm:text-4xl md:text-6xl lg:text-7xl 
                     font-extrabold italic text-white leading-tight mb-6
+                    whitespace-pre-line
                   "
                 >
                   {slide.title}

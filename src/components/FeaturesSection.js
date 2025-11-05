@@ -131,7 +131,7 @@ export default function FeatureSection() {
   return (
     <section
       ref={rootRef}
-      className="relative z-10 lg:py-24 overflow-hidden bg-transparent h-full"
+      className="relative z-10 lg:py-24 px-2 overflow-hidden bg-transparent h-full"
     >
       <div
         className={`mx-auto relative ${

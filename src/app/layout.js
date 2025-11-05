@@ -1,26 +1,18 @@
 import { Geist, Geist_Mono, Almarai, Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import i18next from "@/i18n/client";
 import { fallbackLng } from "@/i18n/settings";
+import ClientWrapper from "./ClientWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
   weight: ["400", "500", "600", "700"],
 });
-
 const almarai = Almarai({
   subsets: ["arabic"],
   variable: "--font-almarai",
@@ -34,18 +26,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const savedLang =
-    typeof window !== "undefined"
-      ? localStorage.getItem("language") || i18next.language || "en"
-      : "en";
-
-  const dir = savedLang === "ar" ? "rtl" : "ltr";
-  const font = savedLang === "ar" ? almarai.variable : montserrat.variable;
-
   return (
-    <html lang={savedLang} dir={dir}>
-       <head>
-        {/* ✅ Run before hydration to prevent flicker */}
+    <html suppressHydrationWarning>
+      <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -54,18 +37,26 @@ export default function RootLayout({ children }) {
                   var lang = localStorage.getItem('language') || '${fallbackLng}';
                   document.documentElement.lang = lang;
                   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-                } catch (e) {}
+                  // Store on window before React runs
+                  window.__LANG__ = lang;
+                } catch (e) { window.__LANG__ = '${fallbackLng}'; }
               })();
             `,
           }}
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${font} antialiased bg-[#070708] text-white`}
+        className={`
+          ${geistSans.variable}
+          ${geistMono.variable}
+          ${montserrat.variable}
+          ${almarai.variable}
+          antialiased bg-[#070708] text-white
+          transition-all duration-500
+          rtl:font-almarai ltr:font-montserrat
+        `}
       >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );

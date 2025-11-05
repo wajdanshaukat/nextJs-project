@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/app/**/*.{js,jsx}", "./src/components/**/*.{js,jsx}"],
+  content: ["./src/app/**/*.{js,jsx,ts,tsx}", "./src/components/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -12,9 +12,8 @@ module.exports = {
         "3xl": "40px",
       },
       fontFamily: {
-        geistMono: ["var(--font-geist-mono)", "monospace"],
-        almarai: ["Almarai", "sans-serif"],
-        montserrat: ["Montserrat", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+        almarai: ["var(--font-almarai)", "sans-serif"],
       },
       screens: {
         xs: "425px",

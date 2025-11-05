@@ -15,37 +15,37 @@ const VenusCarousel = ({ isOpen = false }) => {
   const items = [
     {
       id: 1,
-      videoSrc: "assets/images/f1_video.mp4",
+      videoSrc: "assets/images/video1.mp4",
       heading: t("artGalleryHeading"),
       subHeading: t("artGallerySubHeading"),
     },
     {
       id: 2,
-      videoSrc: "assets/images/f2_video.mp4",
+      videoSrc: "assets/images/video2.mp4",
       heading: t("lobbyHeading"),
       subHeading: t("lobbySubHeading"),
     },
     {
       id: 3,
-      videoSrc: "assets/images/f3_video.mp4",
+      videoSrc: "assets/images/video4.mp4",
       heading:t("conferenceRoomHeading"),
       subHeading: t("conferenceRoomSubHeading"),
     },
     {
       id: 4,
-      videoSrc: "assets/images/f1_video.mp4",
+      videoSrc: "assets/images/video1.mp4",
       heading: t("openSpaceHeading"),
       subHeading:  t("openSpaceSubHeading"),
     },
     {
       id: 5,
-      videoSrc: "assets/images/f2_video.mp4",
+      videoSrc: "assets/images/video2.mp4",
       heading: t("loungeAreaHeading"),
       subHeading: t("loungeAreaSubHeading"),
     },
     {
       id: 6,
-      videoSrc: "assets/images/f3_video.mp4",
+      videoSrc: "assets/images/video4.mp4",
       heading: t("meetingHubHeading"),
       subHeading: t("meetingHubSubHeading"),
     },
@@ -168,12 +168,12 @@ const VenusCarousel = ({ isOpen = false }) => {
 
   return (
     <div
-      className="w-full my-slider max-md:px-2 md:px-5 lg:px-10 py-2 md:py-10 max-lg:h-[750px] self-center"
+      className="w-full my-slider max-md:px-2 md:px-6 lg:px-12 py-2 md:py-6 max-lg:h-[612px] self-center"
       id="venus"
     >
       <div
         ref={containerRef1}
-        className="relative max-lg:h-full lg:h-dvh flex items-center justify-start overflow-hidden"
+        className="relative max-lg:h-full lg:h-[55dvh] flex items-center justify-start overflow-hidden"
       >
         <div className="absolute flex items-center w-full" id="carousal-bottom">
           {getVisibleItems().map((item, index) => (
@@ -183,7 +183,7 @@ const VenusCarousel = ({ isOpen = false }) => {
               className="lg:!h-[750px] max-lg:h-[512px] rounded-lg self-start transition relative overflow-hidden"
               style={{ minWidth: "0%", opacity: 0, visibility: "hidden" }}
             >
-              <div
+              {/* <div
                 className="rounded-[40px] absolute h-full w-full"
                 style={{
                   background:
@@ -208,7 +208,7 @@ const VenusCarousel = ({ isOpen = false }) => {
                 >
                   {item.subHeading}
                 </p>
-              </div>
+              </div> */}
               <video
                 src={item.videoSrc}
                 autoPlay

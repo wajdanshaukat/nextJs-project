@@ -83,8 +83,8 @@ export default function NewsSection() {
     setCurrentSlide((prev) => (prev - 1 + events.length) % events.length);
 
   return (
-    <section ref={rootRef} className="relative bg-black py-24 overflow-hidden">
-      <div className="mx-auto px-6 md:px-8 lg:px-10">
+    <section ref={rootRef} className="relative bg-black px-6 md:px-8 lg:px-12 py-24 overflow-hidden">
+      <div className="mx-auto">
         <div className="bg-[#F5F5F5] rounded-3xl p-8 lg:p-12 flex flex-col lg:flex-row lg:gap-8 items-start">
           {/* LEFT SECTION */}
           <div className="flex-shrink-0 w-full pb-4 lg:w-[450px] space-y-6">
