@@ -26,7 +26,7 @@ export default function Footer() {
       {/* Top Section */}
       <div className="mx-auto flex flex-col md:flex-row justify-between items-start gap-8 py-10">
         {/* Left: Logo + Links */}
-        <div className="flex flex-col items-center md:items-start gap-6 w-full md:w-1/3 order-1">
+        <div className="flex flex-col items-center md:items-start gap-6 w-full md:max-w-sm md:w-1/3 order-1">
           <Image
             src={
               i18n.language === "ar"
@@ -38,14 +38,14 @@ export default function Footer() {
             height={80}
             className="object-contain"
           />
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start xl:mt-12">
+          <div className="flex flex-wrap gap-3 justify-center md:justify-start xl:mt-8">
             {footerLinks.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="border-2 border-white text-white text-md px-4 py-1.75 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
+                className="border-2 border-white text-white text-md px-2 py-1.75 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
               >
-                {item.label}
+                {item.label.toLocaleUpperCase()}
               </button>
             ))}
           </div>
@@ -117,7 +117,7 @@ export default function Footer() {
         </div>
 
         {/* Right: Newsletter */}
-        <div className="flex flex-col gap-4 items-center md:items-start w-full md:w-1/3 order-2 md:order-3">
+        <div className="flex flex-col gap-4 items-center md:items-start w-full md:max-w-sm md:w-1/3 order-2 md:order-3">
           <h3 className="text-[32px] font-medium">{t("newsletter")}</h3>
 
           <input

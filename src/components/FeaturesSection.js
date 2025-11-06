@@ -160,7 +160,7 @@ export default function FeatureSection() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`text-xs uppercase tracking-wide border-2 border-white px-4 py-2.5 cursor-pointer rounded-full transition-all flex-shrink-0 ${
+                  className={`text-xs uppercase border-2 border-white px-4 py-2 cursor-pointer rounded-full transition-all flex-shrink-0 ${
                     activeTab === tab.key
                       ? "bg-white text-black font-semibold"
                       : "text-white/80 hover:bg-white/10"
@@ -204,22 +204,22 @@ export default function FeatureSection() {
           slidesPerGroup={1}
           loop={true}
           loopedSlides={data[activeTab]?.length}
-          spaceBetween={35}
+          spaceBetween={30}
           dir={i18n.language === "ar" ? "rtl" : "ltr"}
           breakpoints={{
-            0: { slidesPerView: 1.1, spaceBetween: 15 },
-            640: { slidesPerView: 1.5, spaceBetween: 20 },
-            768: { slidesPerView: 2.15, spaceBetween: 30 },
-            1024: { slidesPerView: 3.15, spaceBetween: 35 },
-            1440: { slidesPerView: 4, spaceBetween: 40 },
-            1920: { slidesPerView: 5, spaceBetween: 45 },
+            0: { slidesPerView: 1.1, spaceBetween: 10 },
+            640: { slidesPerView: 1.5, spaceBetween: 15 },
+            768: { slidesPerView: 2.15, spaceBetween: 20 },
+            1024: { slidesPerView: 3.15, spaceBetween: 25 },
+            1440: { slidesPerView: 3.15, spaceBetween: 25 },
+            1920: { slidesPerView: 4.15, spaceBetween: 28 },
           }}
           className="!overflow-visible w-full"
         >
           {data[activeTab]?.map((card, index) => (
             <SwiperSlide key={index}>
               <div
-                className="text-black w-full max-w-[450px] flex flex-col gap-3 pb-3 p-1 rounded-[34px] h-full"
+                className="text-black w-full max-w-[544px] flex flex-col gap-3 pb-3 p-1 rounded-[34px] h-full"
                 style={{ background: card.bgColor }}
               >
                 <div>
@@ -231,7 +231,7 @@ export default function FeatureSection() {
                     height={500}
                   />
                 </div>
-                <div className="px-3 flex flex-col gap-4">
+                <div className="px-4 py-4 flex flex-col gap-4">
                   <div className="rtl:font-almarai ltr:font-montserrat font-medium md:leading-[39px] sm:leading-[24px] leading-[20px] sm:text-[20px] text-[20px] md:text-[32px] rtl:text-right">
                     {card.header.toUpperCase()}
                   </div>

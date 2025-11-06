@@ -274,7 +274,7 @@ export default function HeroSection() {
 
             {/* Content */}
             <div
-              className={`relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-12 h-full flex items-center 
+              className={`relative z-[10] mx-auto lg:mt-24 mt-32 px-6 sm:px-8 lg:px-16 h-full flex items-center 
                 ${lang === "ar" ? "justify-between" : "justify-start"}
               `}
             >
@@ -334,7 +334,7 @@ export default function HeroSection() {
                 <p
                   className="
                     text-white/90 text-sm sm:text-base md:text-lg 
-                    w-[600px] mx-auto lg:mx-0 mb-8 leading-relaxed
+                    max-wxl mx-auto lg:mx-0 mb-8 leading-relaxed
                   "
                 >
                   {slide.description}
@@ -414,7 +414,7 @@ export default function HeroSection() {
               {/* Dot Navigation */}
               <div
                 className={`absolute ${
-                  lang === "ar" ? "left-12" : "right-12"
+                  lang === "ar" ? "left-15" : "right-15"
                 } top-[69%] -translate-y-1/2 hidden lg:flex items-center gap-3 z-20`}
               >
                 {heroSlides.map((_, dotIndex) => (

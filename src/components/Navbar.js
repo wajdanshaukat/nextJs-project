@@ -75,7 +75,7 @@ export default function Navbar() {
         )}
 
         {/* Main Navbar */}
-        <div className="w-full flex items-center justify-between px-2 py-4 relative z-[60]">
+        <div className="w-full flex items-center justify-between px-6 py-4 relative z-[60]">
           {/* Left - logo + tabs */}
           <div className="flex items-end gap-12">
             <button
@@ -96,7 +96,7 @@ export default function Navbar() {
                 alt="Zoaverse logo"
                 width={300}
                 height={120}
-                className="w-[180px] sm:w-[200px] md:w-[250px] lg:w-[300px] h-auto"
+                className="w-[180px] sm:w-[200px] md:w-[250px] lg:w-[300px] h-auto cursor-pointer object-contain"
               />
             </button>
 
@@ -108,7 +108,7 @@ export default function Navbar() {
                     onClick={() => scrollToSection(item.href.replace("#", ""))}
                     className="border-2 border-white rounded-full px-4 py-1 text-white text-lg tracking-wide hover:bg-white hover:text-black cursor-pointer transition"
                   >
-                    {item.label}
+                    {item.label.toLocaleUpperCase()}
                   </button>
                 </li>
               ))}
