@@ -10,21 +10,17 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const { t } = useTranslation();
-  const [lang, setLang] = useState(i18next.language || "en");
+  const initialLang =
+    typeof window !== "undefined"
+      ? window.__LANG__ || localStorage.getItem("language") || "ar"
+      : "ar";
 
-  const navItems = [
-    { href: "#features", label: t("features") },
-    { href: "#avatars", label: t("avatars") },
-    { href: "#media", label: t("media") },
-    { href: "#news", label: t("news") },
-  ];
+  const [lang, setLang] = useState(initialLang);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -35,23 +31,19 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (i18next.language !== lang) {
+      i18next.changeLanguage(lang);
+    }
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("language", lang);
+  }, [lang]);
+
   const toggleLanguage = () => {
     const newLang = lang === "ar" ? "en" : "ar";
     setLang(newLang);
-    i18next.changeLanguage(newLang);
-    document.documentElement.lang = newLang;
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
-    localStorage.setItem("language", newLang);
   };
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem("language");
-    if (savedLang) {
-      setLang(savedLang);
-      i18next.changeLanguage(savedLang);
-      document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
-    }
-  }, []);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -63,6 +55,14 @@ export default function Navbar() {
     }
   };
 
+  const navItems = [
+    { href: "#features", label: t("features") },
+    { href: "#avatars", label: t("avatars") },
+    { href: "#media", label: t("media") },
+    { href: "#news", label: t("news") },
+  ];
+
+  if (!lang) return null;
   return (
     <section
       id="header"

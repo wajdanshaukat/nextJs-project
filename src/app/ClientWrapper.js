@@ -15,7 +15,7 @@ export default function ClientWrapper({ children }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    // 1️⃣ Determine language preference safely
+    // Determine language preference safely
     let storedLang = null;
     try {
       storedLang = localStorage.getItem("language");
@@ -25,11 +25,11 @@ export default function ClientWrapper({ children }) {
 
     const lang = storedLang || window.__LANG__ || "en"; // default to EN
 
-    // 2️⃣ Update <html> attributes early
+    // Update <html> attributes early
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
 
-    // 3️⃣ Update i18next if needed
+    // Update i18next if needed
     import("i18next").then((module) => {
       const i18next = module.default;
       if (i18next.language !== lang) {
@@ -37,7 +37,7 @@ export default function ClientWrapper({ children }) {
       }
     });
 
-    // 4️⃣ Continue with your GSAP loader logic
+    // Continue with your GSAP loader logic
     const ctx = gsap.context(() => {
       gsap.set(simpleRingRef.current, { rotate: 45 });
       gsap.fromTo(
