@@ -1,23 +1,6 @@
-import { Geist, Geist_Mono, Almarai, Montserrat } from "next/font/google";
 import "./globals.css";
 import { fallbackLng } from "@/i18n/settings";
 import ClientWrapper from "./ClientWrapper";
-
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  weight: ["400", "500", "600", "700"],
-});
-const almarai = Almarai({
-  subsets: ["arabic"],
-  variable: "--font-almarai",
-  weight: ["400", "700"],
-});
 
 export const metadata = {
   title: "Zoaverse — Jump into the Verse",
@@ -47,10 +30,6 @@ export default function RootLayout({ children }) {
       </head>
       <body
         className={`
-          ${geistSans.variable}
-          ${geistMono.variable}
-          ${montserrat.variable}
-          ${almarai.variable}
           antialiased bg-[#070708] text-white
           transition-all duration-500
           rtl:font-almarai ltr:font-montserrat

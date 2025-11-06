@@ -22,9 +22,18 @@ html {
 }
 
 body {
+  font-family: 'Montserrat', sans-serif !important;
   background: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  margin: 0;
+  scroll-behavior: smooth !important;
+}
+
+[dir="rtl"] body,
+html[lang="ar"] body {
+  font-family: 'Almarai', sans-serif !important;
+  font-style: normal !important;
 }
 
 /* Custom scrollbar */
@@ -316,7 +325,7 @@ input {
 }
 .text-wrapper {
   font-size: 38px;
-  font-weight: 600;
+  font-weight: 500;
   color: black;
   letter-spacing: 1px;
   line-height: 1.2;

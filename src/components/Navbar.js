@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { TbMenuDeep } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
@@ -79,7 +78,15 @@ export default function Navbar() {
         <div className="w-full flex items-center justify-between px-2 py-4 relative z-[60]">
           {/* Left - logo + tabs */}
           <div className="flex items-end gap-12">
-            <Link href="#" className="flex items-center">
+            <button
+              onClick={() =>
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                })
+              }
+              className="flex items-center focus:outline-none"
+            >
               <Image
                 src={
                   lang === "ar"
@@ -91,7 +98,7 @@ export default function Navbar() {
                 height={120}
                 className="w-[180px] sm:w-[200px] md:w-[250px] lg:w-[300px] h-auto"
               />
-            </Link>
+            </button>
 
             {/* Desktop Menu */}
             <ul className="hidden lg:flex items-center gap-6">
@@ -199,100 +206,3 @@ export default function Navbar() {
     </section>
   );
 }
-
-// "use client";
-// import { useState } from "react";
-// import Link from "next/link";
-// import { Menu, X, Languages, Download } from "lucide-react";
-
-// export default function Navbar() {
-//   const [open, setOpen] = useState(false);
-
-//   const navItems = [
-//     { href: "#features", label: "Features" },
-//     { href: "#avatars", label: "Avatars" },
-//     { href: "#media", label: "Media" },
-//     { href: "#news", label: "News" },
-//   ];
-
-//   return (
-//     <header className="fixed top-0 inset-x-0 z-50">
-//       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-//         <div className="mt-4 rounded-2xl border border-white/10 bg-[#0b0b0ccc] backdrop-blur supports-[backdrop-filter]:bg-[#0b0b0cb3]">
-//           <div className="flex h-14 items-center justify-between px-4">
-//             {/* Brand */}
-//             <Link href="#" className="flex items-center gap-2 text-white">
-//               <Image src="/file.svg" alt="Zoaverse" className="h-6 w-6" />
-//               <span className="font-semibold tracking-wide">ZOAVERSE</span>
-//             </Link>
-
-//             {/* Desktop nav */}
-//             <nav className="hidden md:flex items-center gap-2">
-//               {navItems.map((item) => (
-//                 <a
-//                   key={item.href}
-//                   href={item.href}
-//                   className="text-xs uppercase tracking-wider text-white/80 hover:text-white border border-white/10 px-3 py-1.5 rounded-full"
-//                 >
-//                   {item.label}
-//                 </a>
-//               ))}
-//             </nav>
-
-//             {/* Actions */}
-//             <div className="hidden md:flex items-center gap-2">
-//               <button className="inline-flex items-center gap-1 text-xs text-white/90 border border-white/10 px-3 py-1.5 rounded-full hover:bg-white/5">
-//                 <Languages size={14} />
-//                 العربية
-//               </button>
-//               <a
-//                 href="#download"
-//                 className="inline-flex items-center gap-1 text-xs font-semibold text-black bg-white px-3 py-1.5 rounded-full hover:bg-white/90"
-//               >
-//                 <Download size={14} /> Download App
-//               </a>
-//             </div>
-
-//             {/* Mobile toggle */}
-//             <button
-//               className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-white"
-//               onClick={() => setOpen((v) => !v)}
-//               aria-label="Toggle menu"
-//             >
-//               {open ? <X size={18} /> : <Menu size={18} />}
-//             </button>
-//           </div>
-
-//           {/* Mobile menu */}
-//           {open && (
-//             <div className="md:hidden border-t border-white/10 px-4 pb-4">
-//               <nav className="flex flex-col gap-2 py-3">
-//                 {navItems.map((item) => (
-//                   <a
-//                     key={item.href}
-//                     href={item.href}
-//                     onClick={() => setOpen(false)}
-//                     className="text-sm text-white/90 hover:text-white px-3 py-2 rounded-md hover:bg-white/5"
-//                   >
-//                     {item.label}
-//                   </a>
-//                 ))}
-//               </nav>
-//               <div className="flex items-center gap-2">
-//                 <button className="inline-flex items-center gap-2 text-sm text-white/90 border border-white/10 px-3 py-2 rounded-md hover:bg-white/5">
-//                   <Languages size={16} /> العربية
-//                 </button>
-//                 <a
-//                   href="#download"
-//                   className="inline-flex items-center gap-2 text-sm font-semibold text-black bg-white px-3 py-2 rounded-md hover:bg-white/90"
-//                 >
-//                   <Download size={16} /> Download
-//                 </a>
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }

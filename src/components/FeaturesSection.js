@@ -140,10 +140,10 @@ export default function FeatureSection() {
       >
         {/* Header */}
         <div className="flex flex-col mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-regular px-4 rtl:text-right">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl text-white font-regular px-4 rtl:text-right">
             {t("whyChoose")}
             <br />
-            <span className="text-brand-200 text-[50px] sm:text-[70px] md:text-[100px] font-extrabold italic block leading-[1]">
+            <span className="text-brand-200 text-[50px] sm:text-[70px] md:text-[80px] font-bold block leading-[1] ltr:italic rtl:!not-italic">
               {t("zoaverse")}
             </span>
           </h2>
@@ -160,7 +160,7 @@ export default function FeatureSection() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`text-xs uppercase tracking-wide border border-white px-4 py-2 cursor-pointer rounded-full transition-all flex-shrink-0 ${
+                  className={`text-xs uppercase tracking-wide border-2 border-white px-4 py-2.5 cursor-pointer rounded-full transition-all flex-shrink-0 ${
                     activeTab === tab.key
                       ? "bg-white text-black font-semibold"
                       : "text-white/80 hover:bg-white/10"
@@ -232,7 +232,7 @@ export default function FeatureSection() {
                   />
                 </div>
                 <div className="px-3 flex flex-col gap-4">
-                  <div className="font-semibold md:leading-[39px] sm:leading-[24px] leading-[20px] sm:text-[20px] text-[16px] md:text-[32px] rtl:text-right">
+                  <div className="rtl:font-almarai ltr:font-montserrat font-medium md:leading-[39px] sm:leading-[24px] leading-[20px] sm:text-[20px] text-[20px] md:text-[32px] rtl:text-right">
                     {card.header.toUpperCase()}
                   </div>
                   <div className="font-normal md:leading-[17px] sm:leading-[14px] sm:text-sm text-xs leading-normal md:text-base rtl:text-right">

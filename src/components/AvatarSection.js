@@ -98,7 +98,7 @@ export default function AvatarSection() {
 
   return (
     <section className="relative bg-black px-4 py-24 sm:py-28 md:py-32 overflow-visible">
-      <div className="mx-auto px-6 md:px-8 lg:px-10">
+      <div className="mx-auto px-2 md:px-6 lg:px-10">
         {/* Inner box: matches News Section width/padding behavior but keeps your gradient */}
         <div
           ref={rootRef}
@@ -126,7 +126,7 @@ export default function AvatarSection() {
             </div>
 
             {/* Floating companions */}
-            <div className="absolute top-[-4%] right-[8%] sm:right-[4%] md:right-[13%] floating-companion w-20 h-20 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-66 lg:h-66 z-[30]">
+            <div className="absolute top-[-4%] right-[-8%] sm:right-[16%] md:right-[10%] floating-companion w-32 h-32 sm:w-48 sm:h-48 md:w-48 md:h-48 lg:w-66 lg:h-66 z-[30]">
               <Image
                 src="/assets/images/companion-2.png"
                 alt="Floating Companion Right"
@@ -134,7 +134,7 @@ export default function AvatarSection() {
                 className="object-contain"
               />
             </div>
-            <div className="absolute top-[80%] left-[8%] sm:left-[12%] md:left-[17%] floating-companion w-20 h-20 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-52 lg:h-52 z-[30]">
+            <div className="absolute top-[80%] left-[8%] sm:left-[12%] md:left-[17%] floating-companion w-28 h-28 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-52 lg:h-52 z-[30]">
               <Image
                 src="/assets/images/companion-1.png"
                 alt="Floating Companion Left"
@@ -150,7 +150,7 @@ export default function AvatarSection() {
               {t("expressYourUnique")}
             </p>
 
-            <p className="font-montserrat font-extrabold italic text-[48px] sm:text-[64px] md:text-[80px] lg:text-[96px] leading-[96px] tracking-normal text-center uppercase text-[#1E1E1E] mt-6 mb-8">
+            <p className="font-montserrat font-extrabold text-[38px] sm:text-[64px] md:text-[80px] lg:text-[86px] leading-[96px] tracking-normal text-center uppercase text-[#1E1E1E] mt-2 mb-4 md:mt-6 md:mb-8 lg:mt-6 lg:mb-8 ltr:italic rtl:!not-italic">
               {t("identity")}
             </p>
 

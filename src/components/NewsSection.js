@@ -89,10 +89,10 @@ export default function NewsSection() {
           {/* LEFT SECTION */}
           <div className="flex-shrink-0 w-full pb-4 lg:w-[450px] space-y-6">
             <div className="space-y-1">
-              <h2 className="text-xl lg:text-2xl font-normal uppercase text-gray-700 tracking-wide">
+              <h2 className="text-xl lg:text-4xl font-medium uppercase text-gray-700 tracking-wide">
                 {t("happening")}
               </h2>
-              <h2 className="text-5xl lg:text-7xl font-bold italic uppercase text-gray-800 tracking-wide leading-tight">
+              <h2 className="text-5xl lg:text-8xl font-extrabold uppercase text-gray-800 tracking-wide leading-tight ltr:italic rtl:!not-italic">
                 {t("now")}
               </h2>
             </div>
@@ -177,13 +177,13 @@ export default function NewsSection() {
                       ></div>
 
                       {isActive && (
-                        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/100 via-blue-800/55 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/100 via-blue-800/50 to-transparent" />
                       )}
 
                       {/* Text content */}
                       {isActive && (
                         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                          <h3 className="text-xl font-bold mb-3">
+                          <h3 className="text-2xl font-medium mb-3">
                             {event.title}
                           </h3>
 
@@ -211,7 +211,7 @@ export default function NewsSection() {
                             </div>
                           </div>
 
-                          <p className="text-sm text-white/90 leading-relaxed">
+                          <p className="text-sm text-white/90 leading-relaxed xl:w-[60%]">
                             {event.description}
                           </p>
                         </div>
@@ -231,23 +231,3 @@ export default function NewsSection() {
     </section>
   );
 }
-
-// useEffect(() => {
-//   gsap.registerPlugin(ScrollTrigger);
-//   const ctx = gsap.context(() => {
-//     gsap.from(slidesRef.current, {
-//       y: 40,
-//       autoAlpha: 0,
-//       stagger: 0.15,
-//       duration: 0.6,
-//       ease: "power3.out",
-//       scrollTrigger: {
-//         trigger: rootRef.current,
-//         start: "top 80%",
-//         once: true,
-//       },
-//     });
-//   }, rootRef);
-
-//   return () => ctx.revert();
-// }, []);

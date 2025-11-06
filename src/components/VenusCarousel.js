@@ -173,7 +173,7 @@ const VenusCarousel = ({ isOpen = false }) => {
     >
       <div
         ref={containerRef1}
-        className="relative max-lg:h-full lg:h-[55dvh] flex items-center justify-start overflow-hidden"
+        className="relative max-lg:h-full lg:h-dvh flex items-center justify-start overflow-hidden"
       >
         <div className="absolute flex items-center w-full" id="carousal-bottom">
           {getVisibleItems().map((item, index) => (

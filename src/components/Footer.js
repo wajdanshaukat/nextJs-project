@@ -34,16 +34,16 @@ export default function Footer() {
                 : "/assets/images/logo.svg"
             }
             alt="Zoaverse"
-            width={160}
-            height={40}
+            width={210}
+            height={80}
             className="object-contain"
           />
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+          <div className="flex flex-wrap gap-3 justify-center md:justify-start xl:mt-12">
             {footerLinks.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="border-2 border-white text-white text-sm px-4 py-2 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
+                className="border-2 border-white text-white text-md px-4 py-1.75 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
               >
                 {item.label}
               </button>
@@ -53,14 +53,9 @@ export default function Footer() {
 
         {/* Center: Social (after Newsletter on mobile) */}
         <div className="flex flex-col items-center gap-5 w-full md:w-1/3 order-3 md:order-2">
-          <h3 className="text-lg font-medium">{t("followUs")}</h3>
+          <h3 className="text-[32px] font-medium">{t("followUs")}</h3>
           <div className="flex items-center gap-4">
             {[
-              {
-                light: "fb.svg",
-                dark: "fb2.svg",
-                href: "#",
-              },
               {
                 light: "xicon.svg",
                 dark: "xiconb.svg",
@@ -123,7 +118,7 @@ export default function Footer() {
 
         {/* Right: Newsletter */}
         <div className="flex flex-col gap-4 items-center md:items-start w-full md:w-1/3 order-2 md:order-3">
-          <h3 className="text-lg font-medium">{t("newsletter")}</h3>
+          <h3 className="text-[32px] font-medium">{t("newsletter")}</h3>
 
           <input
             type="email"
@@ -149,7 +144,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="w-full bg-[#E4E4E4] text-black rounded-t-[1.75rem]">
         <div className="mx-auto px-6 lg:px-10 flex flex-col md:flex-row justify-between items-center py-6 text-xs font-medium">
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div className="flex flex-wrap text-sm gap-4 justify-center md:justify-start">
             <a
               href="https://zoaverse.gitbook.io/docs/alshrwt-w-alkhswsyh/alshrwt-w-alahkam"
               target="_blank"
@@ -172,7 +167,7 @@ export default function Footer() {
               {t("contactUs")}
             </a>
           </div>
-          <span className="mt-2 md:mt-0 opacity-70 text-center md:text-right">
+          <span className="mt-2 md:mt-0 text-sm opacity-70 text-center md:text-right">
             {t("copyright")}
           </span>
         </div>

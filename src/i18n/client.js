@@ -28,7 +28,7 @@ const translations = {
       "downloadText": "DOWNLOAD NOW",
       "moreInfo": "MORE INFO",
       "whyChoose": "Why Choose",
-      "zoaverse": "Zoaverse",
+      "zoaverse": "ZOEVERSE",
       "virtualSpaces": "Virtual Spaces",
       "Store": "Store",
       "gamingHub": "Gaming Hub",
@@ -100,6 +100,8 @@ const translations = {
       "privacyPolicy": "PRIVACY POLICY",
       "contactUs": "CONTACT US",
       "copyright": "COPYRIGHT BY @ ZOAVERSE - 2025",
+      "unsupportedTitle": "Unsupported Platform",
+      "unsupportedDesc": "It looks like your device isn’t supported for automatic download. Please choose your version manually below:",
     },
   },
   ar: {
@@ -198,7 +200,9 @@ const translations = {
       "termsOfUse": "الشروط والاحكام",
       "privacyPolicy": "سياسة الخصوصية",
       "contactUs": "تواصل معنا",
-      "copyright": "جميع الحقوق محفوظة @ ZOAVERSE - 2025"
+      "copyright": "جميع الحقوق محفوظة @ ZOAVERSE - 2025",
+      "unsupportedTitle": "منصة غير مدعومة",
+      "unsupportedDesc": "يبدو أن جهازك غير مدعوم للتنزيل التلقائي. يُرجى اختيار إصدارك يدويًا أدناه:",
     },
   },
 };
