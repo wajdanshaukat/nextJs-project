@@ -15,12 +15,30 @@ export default function ClientWrapper({ children }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const lang = window.__LANG__ || "ar";
+    // 1️⃣ Determine language preference safely
+    let storedLang = null;
+    try {
+      storedLang = localStorage.getItem("language");
+    } catch (e) {
+      console.warn("localStorage not available:", e);
+    }
+
+    const lang = storedLang || window.__LANG__ || "en"; // default to EN
+
+    // 2️⃣ Update <html> attributes early
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
 
+    // 3️⃣ Update i18next if needed
+    import("i18next").then((module) => {
+      const i18next = module.default;
+      if (i18next.language !== lang) {
+        i18next.changeLanguage(lang);
+      }
+    });
+
+    // 4️⃣ Continue with your GSAP loader logic
     const ctx = gsap.context(() => {
-      // spinner starts rotating instantly
       gsap.set(simpleRingRef.current, { rotate: 45 });
       gsap.fromTo(
         simpleRingRef.current,
@@ -28,7 +46,6 @@ export default function ClientWrapper({ children }) {
         { rotate: 405, duration: 1, ease: "linear", repeat: -1 }
       );
 
-      // glowing ring stage
       setTimeout(() => {
         gsap.to(simpleRingRef.current, {
           opacity: 0,
@@ -59,7 +76,6 @@ export default function ClientWrapper({ children }) {
         );
       }, 1000);
 
-      // loader exit + page fade-in
       setTimeout(() => {
         const tl = gsap.timeline({
           onComplete: () => {
@@ -68,7 +84,6 @@ export default function ClientWrapper({ children }) {
           },
         });
 
-        // loader fade and slide away
         tl.to(loaderRef.current, {
           y: -120,
           opacity: 0,
@@ -77,15 +92,10 @@ export default function ClientWrapper({ children }) {
           ease: "power3.inOut",
         });
 
-        // page fade-in
         tl.fromTo(
           pageRef.current,
           { opacity: 0 },
-          {
-            opacity: 1,
-            duration: 1.4,
-            ease: "power3.out",
-          },
+          { opacity: 1, duration: 1.4, ease: "power3.out" },
           "-=0.6"
         );
       }, 2500);
