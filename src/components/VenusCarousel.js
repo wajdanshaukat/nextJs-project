@@ -168,7 +168,7 @@ const VenusCarousel = ({ isOpen = false }) => {
 
   return (
     <div
-      className="w-full my-slider max-md:px-2 md:px-6 lg:px-12 py-2 md:py-6 max-lg:h-[612px] self-center"
+      className="w-full my-slider max-md:px-2 md:px-6 lg:px-14 py-2 md:py-6 max-lg:h-[612px] self-center"
       id="venus"
     >
       <div
