@@ -81,14 +81,20 @@ const translations = {
       "event1_title": "Event Name",
       "event1_day": "Monday",
       "event1_desc": "Zoaverse provides a wide selection of customizable venues that makes...",
+      "event1_time": "12:00 PM",
+      "event1_fullDate": "24 May 2024",
       
       "event2_title": "Gaming Tournament",
       "event2_day": "Wednesday",
       "event2_desc": "Compete with players from around the world in our exclusive gaming tournament.",
+      "event2_time": "7:00 PM",
+      "event2_fullDate": "17 May 2025",
       
       "event3_title": "Virtual Workshop",
       "event3_day": "Friday",
       "event3_desc": "Join our interactive workshop to learn new skills and connect with like-minded individuals.",
+      "event3_time": "2:00 PM",
+      "event3_fullDate": "19 May 2025",
       
       "ksaTime": "KSA Time",
 
@@ -182,14 +188,20 @@ const translations = {
       "event1_title": "اسم الفعالية",
       "event1_day": "الاثنين",
       "event1_desc": "زوافيرس تقدّم مجموعة واسعة من القاعات القابلة للتخصيص لتجعل تجربتك مميزة ومتفردة.",
+      "event1_time": "١٢:٠٠ ظهرًا",
+      "event1_fullDate": "٢٤ مايو ٢٠٢٤",
       
       "event2_title": "بطولة الألعاب",
       "event2_day": "الأربعاء",
       "event2_desc": "نافس لاعبين من جميع أنحاء العالم في بطولتنا الحصرية للألعاب.",
+      "event2_time": "٧:٠٠ مساءً",
+      "event2_fullDate": "١٧ مايو ٢٠٢٥",
       
       "event3_title": "ورشة عمل افتراضية",
       "event3_day": "الجمعة",
       "event3_desc": "انضم إلى ورشتنا التفاعلية لتتعلم مهارات جديدة وتتعرف على أشخاص ذوي اهتمامات مشتركة.",
+      "event3_time": "٢:٠٠ ظهرًا",
+      "event3_fullDate": "١٩ مايو ٢٠٢٥",
       
       "ksaTime": "بتوقيت السعودية",
 

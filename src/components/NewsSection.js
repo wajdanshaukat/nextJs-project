@@ -21,8 +21,8 @@ export default function NewsSection() {
       id: 1,
       title: t("event1_title"),
       date: t("event1_day"),
-      time: "12:00 PM",
-      fullDate: "24 May 2024",
+      time: t("event1_time"),
+      fullDate: t("event1_fullDate"),
       timezone: t("ksaTime"),
       description: t("event1_desc"),
       image: "/assets/images/event-1.png",
@@ -31,8 +31,8 @@ export default function NewsSection() {
       id: 2,
       title: t("event2_title"),
       date: t("event2_day"),
-      time: "7:00 PM",
-      fullDate: "17 May 2025",
+      time: t("event2_time"),
+      fullDate: t("event2_fullDate"),
       timezone: t("ksaTime"),
       description: t("event2_desc"),
       image: "/assets/images/event-2.png",
@@ -41,8 +41,8 @@ export default function NewsSection() {
       id: 3,
       title: t("event3_title"),
       date: t("event3_day"),
-      time: "2:00 PM",
-      fullDate: "19 May 2025",
+      time: t("event3_time"),
+      fullDate: t("event3_fullDate"),
       timezone: t("ksaTime"),
       description: t("event3_desc"),
       image: "/assets/images/event-3.png",
@@ -83,7 +83,10 @@ export default function NewsSection() {
     setCurrentSlide((prev) => (prev - 1 + events.length) % events.length);
 
   return (
-    <section ref={rootRef} className="relative bg-black px-6 md:px-8 lg:px-14 py-24 overflow-hidden">
+    <section
+      ref={rootRef}
+      className="relative bg-black px-6 md:px-8 lg:px-14 py-24 overflow-hidden"
+    >
       <div className="mx-auto">
         <div className="bg-[#F5F5F5] rounded-3xl p-8 lg:p-12 flex flex-col lg:flex-row lg:gap-8 items-start">
           {/* LEFT SECTION */}
@@ -187,7 +190,11 @@ export default function NewsSection() {
                             {event.title}
                           </h3>
 
-                          <div className="flex items-start gap-6 mb-3">
+                          <div
+                            className={`flex items-start gap-6 mb-3 ${
+                              i18n.language === "ar" ? "flex-row-reverse justify-end" : ""
+                            }`}
+                          >
                             {/* Date */}
                             <div className="flex items-start gap-2">
                               <Calendar size={14} className="mt-[2px]" />

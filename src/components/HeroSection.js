@@ -239,7 +239,7 @@ export default function HeroSection() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full h-[1080px] md:h-[900px] sm:h-[750px] flex items-center overflow-hidden bg-cover bg-center"
+      className="relative w-full h-[1080px] xl:h-[1080px] 2xl:h-[1140px] md:h-[900px] sm:h-[750px] flex items-center overflow-hidden bg-cover bg-center"
       style={{
         background:
           'url("assets/images/bg2.png") no-repeat center center fixed, url("assets/images/Bees1.png") no-repeat center center fixed',
@@ -267,7 +267,7 @@ export default function HeroSection() {
                   ? "bg-[position:center_top_20%]"
                   : isMobile
                   ? ""
-                  : "bg-center"
+                  : "bg-[position:center_100px]"
               }`}
               style={{ backgroundImage: `url(${bgImage})` }}
             ></div>

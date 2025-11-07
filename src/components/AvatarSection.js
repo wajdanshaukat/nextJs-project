@@ -146,11 +146,11 @@ export default function AvatarSection() {
 
           {/* Text */}
           <div className="identity-text mt-12 text-center mx-6 z-10 w-[90%] max-w-[580px] h-auto">
-            <p class="font-montserrat font-medium text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[100%] tracking-normal text-center uppercase text-[#1E1E1E]">
+            <p className="font-montserrat font-medium text-[24px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[100%] tracking-tight text-center uppercase text-[#1E1E1E]">
               {t("expressYourUnique")}
             </p>
 
-            <p className="font-montserrat font-extrabold text-[38px] sm:text-[64px] md:text-[80px] lg:text-[86px] leading-[96px] tracking-normal text-center uppercase text-[#1E1E1E] mt-2 mb-4 md:mt-6 md:mb-8 lg:mt-6 lg:mb-8 ltr:italic rtl:!not-italic">
+            <p className="font-montserrat font-extrabold text-[30px] sm:text-[64px] md:text-[80px] lg:text-[86px] leading-[96px] tracking-wide text-center uppercase text-[#1E1E1E] mt-2 mb-4 md:mt-6 md:mb-8 lg:mt-6 lg:mb-8 ltr:italic rtl:!not-italic">
               {t("identity")}
             </p>
 

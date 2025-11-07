@@ -87,23 +87,21 @@ export default function Footer() {
                 href={icon.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative p-2 flex items-center justify-center rounded-full bg-transparent transition-colors duration-300 hover:bg-white"
+                className="icon-wrapper relative p-2 flex items-center justify-center rounded-full bg-transparent transition-colors duration-300 hover:bg-white"
               >
-                {/* Light icon */}
                 <Image
                   src={`/assets/images/${icon.light}`}
                   alt="icon"
                   width={24}
                   height={24}
-                  className="transition-opacity duration-300 hover:opacity-0"
+                  className="icon-light transition-opacity duration-300"
                 />
-                {/* Dark icon */}
                 <Image
                   src={`/assets/images/${icon.dark}`}
                   alt="icon-black"
                   width={24}
                   height={24}
-                  className="absolute transition-opacity duration-300 opacity-0 hover:opacity-100"
+                  className="icon-dark absolute opacity-0 transition-opacity duration-300"
                 />
               </a>
             ))}
@@ -134,8 +132,8 @@ export default function Footer() {
               width={20}
               height={5}
               className={`object-contain ${
-            i18n.language === "ar" ? "rotate-180" : ""
-          }`}
+                i18n.language === "ar" ? "rotate-180" : ""
+              }`}
             />
           </button>
         </div>

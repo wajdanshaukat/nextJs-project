@@ -403,3 +403,11 @@ input {
     font-size: 14px;
   }
 }
+
+.icon-wrapper:hover .icon-light {
+  opacity: 0;
+}
+
+.icon-wrapper:hover .icon-dark {
+  opacity: 1;
+}
