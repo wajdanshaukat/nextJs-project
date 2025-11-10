@@ -404,6 +404,16 @@ input {
   }
 }
 
+.icon-wrapper {
+  background-color: transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.icon-wrapper:hover {
+  background-color: white;
+  transform: scale(1.05); 
+}
+
 .icon-wrapper:hover .icon-light {
   opacity: 0;
 }

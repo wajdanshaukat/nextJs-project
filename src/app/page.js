@@ -44,12 +44,12 @@ export default function Page() {
       <div className="relative bg-black text-white overflow-hidden">
         {/* Hero Section */}
         <HeroSection />
-        <div className="absolute left-0 w-full z-[0] pointer-events-none top-[58%] 2xl:top-[63%] -translate-y-1/2">
+        <div className="absolute left-0 w-full z-[0] pointer-events-none top-[58%] lg:top-[54%] 1xl:top-[64%] 2xl:top-[62%] -translate-y-1/2">
           <div
             ref={bgRef}
-            className="absolute left-0 w-full z-[0] pointer-events-none overflow-hidden top-[58%] 2xl:top-[63%] -translate-y-1/2"
+            className="absolute left-0 w-full z-[0] pointer-events-none overflow-hidden top-[58%] lg:top-[54%] 1xl:top-[64%] 2xl:top-[62%] -translate-y-1/2"
           >
-            <div className="relative w-full h-[400px] md:h-[600px] lg:h-[500px] xl:h-[480px] 2xl:h-[700px]">
+            <div className="relative w-full h-[400px] md:h-[600px] lg:h-[500px] xl:h-[480px] 1xl:h-[600px] 2xl:h-[830px]">
               <Image
                 src="/assets/images/Frame-48.png"
                 alt="falling background"

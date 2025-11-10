@@ -239,7 +239,7 @@ export default function HeroSection() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full h-[1080px] xl:h-[1080px] 2xl:h-[1140px] md:h-[900px] sm:h-[750px] flex items-center overflow-hidden bg-cover bg-center"
+      className="relative w-full h-[1080px] md:h-[900px] lg:h-[700px] xl:h-screen flex items-center overflow-hidden bg-cover bg-center"
       style={{
         background:
           'url("assets/images/bg2.png") no-repeat center center fixed, url("assets/images/Bees1.png") no-repeat center center fixed',
@@ -279,7 +279,7 @@ export default function HeroSection() {
               `}
             >
               <div
-                className={`max-w-2xl relative w-full mx-auto lg:mx-0 ${
+                className={`max-w-[900px] relative w-full mx-auto lg:mx-0 ${
                   lang === "ar"
                     ? "!text-center lg:!text-right"
                     : "!text-center lg:!text-left"
@@ -321,7 +321,7 @@ export default function HeroSection() {
                 {/* Title */}
                 <h1
                   className="
-                    text-5xl sm:text-4xl md:text-6xl lg:text-7xl 
+                    text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[85px] 
                     font-extrabold text-white leading-tight mb-6
                     whitespace-pre-line
                     ltr:italic rtl:!not-italic
@@ -334,7 +334,7 @@ export default function HeroSection() {
                 <p
                   className="
                     text-white/90 text-sm sm:text-base md:text-lg 
-                    max-wxl mx-auto lg:mx-0 mb-8 leading-relaxed
+                    max-w-[600px] mx-auto lg:mx-0 mb-8 leading-relaxed
                   "
                 >
                   {slide.description}
