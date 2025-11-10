@@ -17,6 +17,7 @@ export default function ClientWrapper({ children }) {
   useEffect(() => {
   document.documentElement.style.overflow = "hidden";
   document.body.style.overflow = "hidden";
+  window.scrollTo(0, 0);
 
   let storedLang = null;
   try {
