@@ -19,21 +19,30 @@
 
 html {
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 body {
   font-family: 'Montserrat', sans-serif !important;
   background: var(--background);
   color: var(--foreground);
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   margin: 0;
   scroll-behavior: smooth !important;
+  overflow-x: hidden !important;
 }
 
 [dir="rtl"] body,
 html[lang="ar"] body {
   font-family: 'Almarai', sans-serif !important;
   font-style: normal !important;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none !important; /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari */
 }
 
 /* Custom scrollbar */

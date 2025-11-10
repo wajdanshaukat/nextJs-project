@@ -239,7 +239,7 @@ export default function HeroSection() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full h-[1080px] md:h-[900px] lg:h-[700px] xl:h-screen flex items-center overflow-hidden bg-cover bg-center"
+      className="relative w-full h-[1000px] md:h-[900px] lg:h-[700px] xl:h-screen flex items-center overflow-hidden bg-cover bg-center"
       style={{
         background:
           'url("assets/images/bg2.png") no-repeat center center fixed, url("assets/images/Bees1.png") no-repeat center center fixed',

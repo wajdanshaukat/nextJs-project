@@ -7,17 +7,9 @@ import AvatarSection from "@/components/AvatarSection";
 import VenusCarousel from "@/components/VenusCarousel";
 import NewsSection from "@/components/NewsSection";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 
 export default function Page() {
   const bgRef = useRef(null);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "auto" });
-    }
-  }, [pathname]);
 
   useLayoutEffect(() => {
     // Ensure GSAP reads layout before paint → no jump
@@ -46,17 +38,17 @@ export default function Page() {
       <div className="relative bg-black text-white overflow-hidden">
         {/* Hero Section */}
         <HeroSection />
-        <div className="absolute left-0 w-full z-[0] pointer-events-none top-[58%] lg:top-[54%] 1xl:top-[64%] 2xl:top-[62%] -translate-y-1/2">
+        <div className="absolute left-0 w-full z-[0] pointer-events-none top-[58%] lg:top-[54%] 1xl:top-[72%] 2xl:top-[62%] -translate-y-1/2">
           <div
             ref={bgRef}
-            className="absolute left-0 w-full z-[0] pointer-events-none overflow-hidden top-[58%] lg:top-[54%] 1xl:top-[64%] 2xl:top-[62%] -translate-y-1/2"
+            className="absolute left-0 w-full z-[0] pointer-events-none overflow-hidden top-[58%] lg:top-[54%] 1xl:top-[72%] 2xl:top-[62%] -translate-y-1/2"
           >
             <div className="relative w-full h-[400px] md:h-[600px] lg:h-[500px] xl:h-[480px] 1xl:h-[600px] 2xl:h-[830px]">
               <Image
                 src="/assets/images/Frame-48.png"
                 alt="falling background"
                 fill
-                className="object-cover object-center opacity-75"
+                className="object-cover object-center opacity-100"
                 priority
               />
             </div>
