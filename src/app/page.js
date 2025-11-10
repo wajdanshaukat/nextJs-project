@@ -7,15 +7,17 @@ import AvatarSection from "@/components/AvatarSection";
 import VenusCarousel from "@/components/VenusCarousel";
 import NewsSection from "@/components/NewsSection";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Page() {
   const bgRef = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
-  }, []);
+  }, [pathname]);
 
   useLayoutEffect(() => {
     // Ensure GSAP reads layout before paint → no jump
