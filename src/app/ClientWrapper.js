@@ -15,101 +15,103 @@ export default function ClientWrapper({ children }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
-  window.scrollTo(0, 0);
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
 
-  let storedLang = null;
-  try {
-    storedLang = localStorage.getItem("language");
-  } catch (e) {
-    console.warn("localStorage not available:", e);
-  }
-
-  const lang = storedLang || window.__LANG__ || "en";
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-
-  import("i18next").then((module) => {
-    const i18next = module.default;
-    if (i18next.language !== lang) {
-      i18next.changeLanguage(lang);
+    let storedLang = null;
+    try {
+      storedLang = localStorage.getItem("language");
+    } catch (e) {
+      console.warn("localStorage not available:", e);
     }
-  });
 
-  const ctx = gsap.context(() => {
-    // Initial ring setup
-    gsap.set(simpleRingRef.current, { rotate: 45 });
+    const lang = storedLang || window.__LANG__ || "en";
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
 
-    gsap.fromTo(
-      simpleRingRef.current,
-      { rotate: 45 },
-      { rotate: 405, duration: 1, ease: "linear", repeat: -1 }
-    );
+    import("i18next").then((module) => {
+      const i18next = module.default;
+      if (i18next.language !== lang) {
+        i18next.changeLanguage(lang);
+      }
+    });
 
-    setTimeout(() => {
-      gsap.to(simpleRingRef.current, {
-        opacity: 0,
-        scale: 1.3,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-
-      gsap.set(glowRingRef.current, { opacity: 1, scale: 0.9, rotate: 0 });
-      gsap.fromTo(
-        glowRingRef.current,
-        { rotate: 0 },
-        { rotate: 360, duration: 1.2, ease: "linear", repeat: -1 }
-      );
-      gsap.to(glowRingRef.current, {
-        boxShadow: "0 0 25px #3dbff2, 0 0 60px #3dbff2",
-        borderColor: "#3dbff2",
-        duration: 1.6,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-      });
+    const ctx = gsap.context(() => {
+      // Initial ring setup
+      gsap.set(simpleRingRef.current, { rotate: 45 });
 
       gsap.fromTo(
-        textRef.current,
-        { opacity: 0, scale: 0.95 },
-        { opacity: 1, scale: 1, duration: 1, ease: "power2.out", delay: 0.4 }
+        simpleRingRef.current,
+        { rotate: 45 },
+        { rotate: 405, duration: 1, ease: "linear", repeat: -1 }
       );
-    }, 1000);
 
-    setTimeout(() => {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          setShowPage(true);
-          if (loaderRef.current) loaderRef.current.style.display = "none";
-          document.documentElement.style.overflow = "auto";
-          document.body.style.overflow = "auto";
-        },
-      });
+      setTimeout(() => {
+        gsap.to(simpleRingRef.current, {
+          opacity: 0,
+          scale: 1.3,
+          duration: 0.6,
+          ease: "power2.out",
+        });
 
-      tl.to(loaderRef.current, {
-        y: -120,
-        opacity: 0,
-        scale: 1.05,
-        duration: 1.4,
-        ease: "power3.inOut",
-      });
+        gsap.set(glowRingRef.current, { opacity: 1, scale: 0.9, rotate: 0 });
+        gsap.fromTo(
+          glowRingRef.current,
+          { rotate: 0 },
+          { rotate: 360, duration: 1.2, ease: "linear", repeat: -1 }
+        );
+        gsap.to(glowRingRef.current, {
+          boxShadow: "0 0 25px #3dbff2, 0 0 60px #3dbff2",
+          borderColor: "#3dbff2",
+          duration: 1.6,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+        });
 
-      tl.fromTo(
-        pageRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 1.5, ease: "power3.out" },
-        "-=0.6"
-      );
-    }, 2500);
-  }, loaderRef);
+        gsap.fromTo(
+          textRef.current,
+          { opacity: 0, scale: 0.95 },
+          { opacity: 1, scale: 1, duration: 1, ease: "power2.out", delay: 0.4 }
+        );
+      }, 1000);
 
-  return () => {
-    ctx.revert();
-    document.documentElement.style.overflow = "auto";
-    document.body.style.overflow = "auto";
-  };
-}, []);
+      setTimeout(() => {
+        const tl = gsap.timeline({
+          onStart: () => {
+            window.scrollTo({ top: 0, behavior: "auto" });
+          },
+          onComplete: () => {
+            setShowPage(true);
+            if (loaderRef.current) loaderRef.current.style.display = "none";
+            document.documentElement.style.overflow = "auto";
+            document.body.style.overflow = "auto";
+          },
+        });
+
+        tl.to(loaderRef.current, {
+          y: -120,
+          opacity: 0,
+          scale: 1.05,
+          duration: 1.4,
+          ease: "power3.inOut",
+        });
+
+        tl.fromTo(
+          pageRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 1.5, ease: "power3.out" },
+          "-=0.6"
+        );
+      }, 2500);
+    }, loaderRef);
+
+    return () => {
+      ctx.revert();
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <>
