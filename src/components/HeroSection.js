@@ -267,7 +267,7 @@ export default function HeroSection() {
                   ? "bg-[position:center_top_20%]"
                   : isMobile
                   ? ""
-                  : "bg-[position:center_100px]"
+                  : "bg-[position:center_80px]"
               }`}
               style={{ backgroundImage: `url(${bgImage})` }}
             ></div>

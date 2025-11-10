@@ -409,7 +409,8 @@ input {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.icon-wrapper:hover {
+.icon-wrapper:hover,
+.icon-wrapper.active-mobile {
   background-color: white;
   transform: scale(1.05); 
 }

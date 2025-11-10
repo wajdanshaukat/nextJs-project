@@ -54,7 +54,7 @@ export default function Page() {
                 src="/assets/images/Frame-48.png"
                 alt="falling background"
                 fill
-                className="object-cover object-center opacity-100"
+                className="object-cover object-center opacity-75"
                 priority
               />
             </div>
