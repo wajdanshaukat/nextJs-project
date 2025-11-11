@@ -175,7 +175,7 @@ export default function FeatureSection() {
             <div className="flex gap-4 mt-2 sm:mt-0 sm:justify-end ltr:mr-8 rtl:ml-8">
               <button
                 onClick={handleBack}
-                className="p-3 rounded-full bg-white hover:bg-white/20 transition cursor-pointer"
+                className="p-3 rounded-full bg-white/40 hover:bg-white hover:scale-105 active:bg-white/40 transition-transform transition-colors duration-200 cursor-pointer"
               >
                 <IoIosArrowBack
                   className={`text-black text-2xl ${
@@ -185,7 +185,7 @@ export default function FeatureSection() {
               </button>
               <button
                 onClick={handleNext}
-                className="p-3 rounded-full bg-white hover:bg-white/20 transition cursor-pointer"
+                className="p-3 rounded-full bg-white/40 hover:bg-white hover:scale-105 active:bg-white/40 transition-transform transition-colors duration-200 cursor-pointer"
               >
                 <IoIosArrowForward
                   className={`text-black text-2xl ${

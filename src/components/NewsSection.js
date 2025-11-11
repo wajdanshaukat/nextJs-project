@@ -108,16 +108,21 @@ export default function NewsSection() {
             <div className="flex gap-3 pt-4 justify-end">
               <button
                 onClick={prevSlide}
-                className="w-12 h-12 bg-black opacity-50 rounded-full flex items-center justify-center text-white hover:bg-gray-600 transition-colors cursor-pointer"
+                className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white 
+               hover:bg-gray-900 hover:scale-105 active:bg-black/50 
+               transition-transform transition-colors duration-200 cursor-pointer"
               >
                 <ChevronLeft
                   size={20}
                   className={i18n.language === "ar" ? "rotate-180" : ""}
                 />
               </button>
+
               <button
                 onClick={nextSlide}
-                className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-gray-900 transition-colors cursor-pointer"
+                className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white 
+               hover:bg-gray-900 hover:scale-105 active:bg-black/50 
+               transition-transform transition-colors duration-200 cursor-pointer"
               >
                 <ChevronRight
                   size={20}
@@ -192,7 +197,9 @@ export default function NewsSection() {
 
                           <div
                             className={`flex items-start gap-6 mb-3 ${
-                              i18n.language === "ar" ? "flex-row-reverse justify-end" : ""
+                              i18n.language === "ar"
+                                ? "flex-row-reverse justify-end"
+                                : ""
                             }`}
                           >
                             {/* Date */}
