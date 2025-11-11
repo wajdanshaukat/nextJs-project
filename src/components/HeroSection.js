@@ -414,8 +414,8 @@ export default function HeroSection() {
               {/* Dot Navigation */}
               <div
                 className={`absolute ${
-                  lang === "ar" ? "left-15" : "right-15"
-                } top-[69%] -translate-y-1/2 hidden lg:flex items-center gap-3 z-20`}
+                  lang === "ar" ? "left-16" : "right-16"
+                } top-[75%] -translate-y-1/2 hidden lg:flex items-center gap-3 z-20`}
               >
                 {heroSlides.map((_, dotIndex) => (
                   <button
