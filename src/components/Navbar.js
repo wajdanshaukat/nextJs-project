@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const menuRef = useRef(null);
   const { t } = useTranslation();
   const initialLang =
@@ -52,6 +53,7 @@ export default function Navbar() {
         behavior: "smooth",
         block: "start",
       });
+      setActiveSection(id);
     }
   };
 
@@ -62,6 +64,35 @@ export default function Navbar() {
     { href: "#news", label: t("news") },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // When at top → clear all actives
+      if (window.scrollY < 100) {
+        if (activeSection !== "") setActiveSection("");
+        return;
+      }
+
+      let current = "";
+      for (const item of navItems) {
+        const section = document.querySelector(item.href);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            current = item.href.replace("#", "");
+            break;
+          }
+        }
+      }
+
+      if (current !== activeSection) {
+        setActiveSection(current);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeSection, navItems]);
+
   if (!lang) return null;
   return (
     <section
@@ -69,14 +100,11 @@ export default function Navbar() {
       className="w-full px-6 sm:px-8 fixed top-0 left-0 z-[9999] bg-transparent"
     >
       <nav className="relative bg-transparent">
-        {/* Background blur overlay */}
         {open && (
           <div className="fixed inset-0 bg-[rgba(0,0,0,0.4)] backdrop-blur-md z-[50] transition-opacity duration-500"></div>
         )}
 
-        {/* Main Navbar */}
         <div className="w-full flex items-center justify-between px-6 py-4 relative z-[60]">
-          {/* Left - logo + tabs */}
           <div className="flex items-end gap-12">
             <button
               onClick={() =>
@@ -102,16 +130,24 @@ export default function Navbar() {
 
             {/* Desktop Menu */}
             <ul className="hidden lg:flex items-center gap-6">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <button
-                    onClick={() => scrollToSection(item.href.replace("#", ""))}
-                    className="border-2 border-white rounded-full px-4 py-1 text-white text-lg tracking-wide hover:bg-white hover:text-black cursor-pointer transition"
-                  >
-                    {item.label.toLocaleUpperCase()}
-                  </button>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const id = item.href.replace("#", "");
+                return (
+                  <li key={item.href}>
+                    <button
+                      onClick={() => scrollToSection(id)}
+                      className={`border-2 rounded-full px-4 py-2 text-lg tracking-wide transition cursor-pointer
+                        ${
+                          activeSection === id
+                            ? "bg-white text-black border-white"
+                            : "border-white text-white hover:bg-white hover:text-black"
+                        }`}
+                    >
+                      {item.label.toUpperCase()}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -122,14 +158,13 @@ export default function Navbar() {
             }`}
             ref={menuRef}
           >
-            {/* Arabic Button (Desktop Only) */}
             <button
               onClick={toggleLanguage}
-              className="hidden lg:block px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-white transition cursor-pointer"
+              className="hidden lg:block px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer"
             >
               {lang === "ar" ? "English" : "العربية"}
             </button>
-            {/* Mobile Hamburger */}
+            {/* Mobile Menu */}
             <div className="lg:hidden relative">
               <button
                 onClick={() => setOpen((prev) => !prev)}
@@ -137,7 +172,6 @@ export default function Navbar() {
                   lang === "ar" ? "flex-row-reverse" : ""
                 }`}
               >
-                {/* Animated Icon Transition */}
                 <div
                   className={`relative w-6 h-6 flex items-center justify-center ${
                     lang === "ar" ? "scale-x-[-1]" : ""
@@ -158,8 +192,6 @@ export default function Navbar() {
                     }`}
                   />
                 </div>
-
-                {/* Hover Glow */}
                 <div className="absolute inset-0 rounded-full transition duration-300 opacity-0 hover:opacity-40 bg-blue-400 blur-md"></div>
               </button>
 
@@ -174,18 +206,25 @@ export default function Navbar() {
                 }`}
               >
                 <nav className="flex flex-col divide-y divide-white divide-opacity-40 text-white text-center">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.href}
-                      onClick={() => {
-                        scrollToSection(item.href.replace("#", ""));
-                        setOpen(false);
-                      }}
-                      className="py-4 px-6 uppercase text-[16px] hover:bg-blue-700 transition"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                  {navItems.map((item) => {
+                    const id = item.href.replace("#", "");
+                    return (
+                      <button
+                        key={item.href}
+                        onClick={() => {
+                          scrollToSection(id);
+                          setOpen(false);
+                        }}
+                        className={`py-4 px-6 uppercase text-[16px] transition ${
+                          activeSection === id
+                            ? "bg-blue-700"
+                            : "hover:bg-blue-700"
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    );
+                  })}
 
                   {/* Language Toggle */}
                   <button

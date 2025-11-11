@@ -108,7 +108,7 @@ export default function NewsSection() {
             <div className="flex gap-3 pt-4 justify-end">
               <button
                 onClick={prevSlide}
-                className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"
+                className="w-12 h-12 bg-black opacity-50 rounded-full flex items-center justify-center text-white hover:bg-gray-600 transition-colors cursor-pointer"
               >
                 <ChevronLeft
                   size={20}
