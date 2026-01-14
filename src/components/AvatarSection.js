@@ -113,13 +113,14 @@ export default function AvatarSection() {
           <div className="center-avatar relative w-full flex justify-center z-20 -mt-24 sm:-mt-28 md:-mt-36">
             <div className="relative w-[95%] sm:w-[80%] md:w-[70%] lg:w-[65%] xl:w-[60%] z-10 mx-auto">
               <div className="relative w-full">
-                <Image
-                  src="/assets/images/dummy-avatar.png"
+                <video
+                  src="/assets/images/Video3.mp4"
                   alt="Main Avatar"
-                  width={1000}
-                  height={600}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="rounded-2xl object-contain w-full h-auto z-10"
-                  priority
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-white via-white/50 to-transparent opacity-60 z-[20]" />
               </div>

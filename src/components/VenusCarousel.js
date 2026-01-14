@@ -27,15 +27,15 @@ const VenusCarousel = ({ isOpen = false }) => {
     },
     {
       id: 3,
-      videoSrc: "assets/images/video4.mp4",
-      heading:t("conferenceRoomHeading"),
+      videoSrc: "assets/images/Video4.mp4",
+      heading: t("conferenceRoomHeading"),
       subHeading: t("conferenceRoomSubHeading"),
     },
     {
       id: 4,
       videoSrc: "assets/images/video1.mp4",
       heading: t("openSpaceHeading"),
-      subHeading:  t("openSpaceSubHeading"),
+      subHeading: t("openSpaceSubHeading"),
     },
     {
       id: 5,
@@ -45,7 +45,7 @@ const VenusCarousel = ({ isOpen = false }) => {
     },
     {
       id: 6,
-      videoSrc: "assets/images/video4.mp4",
+      videoSrc: "assets/images/Video4.mp4",
       heading: t("meetingHubHeading"),
       subHeading: t("meetingHubSubHeading"),
     },
@@ -168,19 +168,21 @@ const VenusCarousel = ({ isOpen = false }) => {
 
   return (
     <div
-      className="w-full my-slider max-md:px-2 md:px-6 lg:px-14 py-2 md:py-6 max-lg:h-[612px] self-center"
+      className="w-full my-slider max-md:px-2 md:px-6 lg:px-14 py-2 md:py-6 max-lg:h-[650px] self-center"
       id="venus"
     >
       <div
         ref={containerRef1}
-        className="relative max-lg:h-full lg:h-dvh flex items-center justify-start overflow-hidden"
+        className="relative flex items-center justify-start overflow-hidden
+          h-[600px] md:h-[620px] lg:h-[650px] xl:h-[700px]"
       >
         <div className="absolute flex items-center w-full" id="carousal-bottom">
           {getVisibleItems().map((item, index) => (
             <div
               key={item.id}
               ref={(el) => (itemsRef.current[index] = el)}
-              className="lg:!h-[750px] max-lg:h-[512px] rounded-lg self-start transition relative overflow-hidden"
+              className="rounded-lg transition relative overflow-hidden
+                h-[600px] md:h-[620px] lg:h-[650px] xl:h-[700px]"
               style={{ minWidth: "0%", opacity: 0, visibility: "hidden" }}
             >
               {/* <div
@@ -223,7 +225,7 @@ const VenusCarousel = ({ isOpen = false }) => {
 
         {/* Controls */}
         <div
-          className={`absolute max-lg:translate-y-[210px] lg:translate-y-[320px] h-[512px] self-center flex flex-row items-center justify-center w-full ${
+          className={`absolute bottom-4 lg:bottom-8 w-full flex items-center justify-center ${
             isOpen ? "z-30" : "z-50"
           }`}
         >

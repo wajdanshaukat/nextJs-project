@@ -3,7 +3,7 @@ import { fallbackLng } from "@/i18n/settings";
 import ClientWrapper from "./ClientWrapper";
 
 export const metadata = {
-  title: "Zoaverse — Jump into the Verse",
+  title: "Zoaverse",
   description:
     "Experience virtual spaces, avatars, media and events inside Zoaverse.",
 };
